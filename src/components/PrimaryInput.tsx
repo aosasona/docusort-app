@@ -1,40 +1,36 @@
+import {Input} from "native-base";
 import {FC} from "react";
-import {StyleSheet} from "react-native";
-import {Incubator} from "react-native-ui-lib";
-import {colors} from "../constants";
 import {PrimaryButtonProps} from "../types/Props";
 
-const PrimaryInput: FC<PrimaryButtonProps> = ({onChange, maxLength, placeholder}) => {
+const PrimaryInput: FC<PrimaryButtonProps> = ({
+  type = "text",
+  maxLength = 100,
+  placeholder,
+  disabled = false,
+  onChange,
+}) => {
   return (
-    <Incubator.TextField placeholder={placeholder} floatingPlaceholder floatOnFocus
-                         onChangeText={onChange}
-                         maxLength={maxLength || 100}
-                         color={colors.PRIMARY}
-                         containerStyle={styles.textFieldContainer}
-                         fieldStyle={styles.textField}
-                         floatingPlaceholderStyle={styles.floatingPlaceholder}
-    />
+	<Input type={type}
+		   variant="filled"
+		   color="primary.500"
+		   placeholder={placeholder}
+		   placeholderTextColor="primary.800"
+		   borderRadius={40}
+		   fontSize={14}
+		   width="100%"
+		   py={5}
+		   px={8}
+		   bgColor="primary.900"
+		   borderWidth={0}
+		   maxLength={maxLength}
+		   onChange={(e) => onChange(e.nativeEvent.text)}
+		   isDisabled={disabled}
+		   _focus={{
+			 borderWidth: 1,
+			 borderColor: "primary.600",
+		   }}
+	/>
   )
 }
-
-
-const styles = StyleSheet.create({
-
-  textFieldContainer: {
-    backgroundColor: colors.INPUT_BG,
-    borderRadius: 50,
-    paddingVertical: 10,
-  },
-  textField: {
-    backgroundColor: "transparent",
-    paddingHorizontal: 30,
-    paddingBottom: 10,
-  },
-  floatingPlaceholder: {
-    backgroundColor: "transparent",
-    color: colors.FADED,
-    paddingBottom: 10,
-  },
-})
 
 export default PrimaryInput;

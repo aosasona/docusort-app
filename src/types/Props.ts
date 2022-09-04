@@ -13,6 +13,8 @@ export interface ButtonProps {
 
 export interface PrimaryButtonProps {
   onChange: (e?: any) => void;
+  type?: "password" | "text";
   maxLength?: number;
+  disabled?: boolean;
   placeholder: string;
 }

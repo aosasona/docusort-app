@@ -1,5 +1,6 @@
 import {Input} from "native-base";
 import {FC} from "react";
+import {Platform} from "react-native";
 import {PrimaryButtonProps} from "../types/Props";
 
 const PrimaryInput: FC<PrimaryButtonProps> = ({
@@ -18,7 +19,7 @@ const PrimaryInput: FC<PrimaryButtonProps> = ({
 		   borderRadius={40}
 		   fontSize={14}
 		   width="100%"
-		   py={5}
+		   py={Platform.OS === "ios" ? 7 : 6}
 		   px={8}
 		   bgColor="primary.900"
 		   borderWidth={0}

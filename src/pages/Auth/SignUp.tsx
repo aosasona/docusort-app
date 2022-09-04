@@ -1,16 +1,19 @@
-import {useState} from "react";
 import {
-  Text,
-  Stack,
-  ScrollView,
-  Progress,
-  HStack,
+  Box,
   Button as NativeButton,
+  HStack,
   PresenceTransition,
+  Progress,
+  ScrollView, Spinner,
+  Stack,
+  Text,
+  useToast,
 } from "native-base";
+import {useState} from "react";
 import {TouchableOpacity, View} from "react-native";
 import {Button, Layout} from "../../components"
 import PrimaryInput from "../../components/PrimaryInput";
+import {ToastStyles} from "../../constants";
 import useAuthStyle from "../../hooks/useAuthStyle";
 import {SignUp as SignUpService} from "../../services"
 import {SignUpData} from "../../types/Auth";
@@ -30,7 +33,9 @@ const transitionAnimation = {
 
 const SignUp = ({navigation}) => {
   const styles = useAuthStyle();
+  const toast = useToast();
   const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState<SignUpData>({
 	firstName: "",
 	lastName: "",
@@ -50,6 +55,22 @@ const SignUp = ({navigation}) => {
 	}
   }
 
+  const handleSignUp = async () => {
+	setLoading(true);
+	try {
+	  await SignUpService(data, toast);
+	}
+	catch (e) {
+	  toast.show({
+		description: e.message,
+		...ToastStyles.ERROR,
+	  })
+	}
+	finally {
+	  setLoading(false);
+	}
+  }
+
   return (
 	<Layout style={styles.container}>
 	  <ScrollView showsVerticalScrollIndicator={false}>
@@ -60,7 +81,7 @@ const SignUp = ({navigation}) => {
 		  Let's get you started with an account 🫰
 		</Text>
 		<Stack space={6} mt={4}>
-		  <Progress value={(step / 3) * 100} height={1} width="20%" color="primary.600" bgColor="primary.800" mx={2}
+		  <Progress value={(step / 3) * 100} height={1} width="10%" color="primary.600" bgColor="primary.800" mx={2}
 		  />
 		  {step === 1 && <PresenceTransition
             visible={step === 1}
@@ -86,16 +107,35 @@ const SignUp = ({navigation}) => {
             <PasswordStep data={data} setData={setData}/>
           </PresenceTransition>}
 		</Stack>
+		{loading && <Box py={8}>
+          <Spinner size="sm"/>
+        </Box>}
 	  </ScrollView>
 	  <View>
 		{step < 3 && <HStack width="100%" space={2} justifyContent="space-between" alignItems="center">
-          <NativeButton width="45%" onPress={decreaseStep} disabled={step === 1} variant="ghost">
-            <Text color="gray.50" fontSize="sm" fontWeight={500}>
+          <NativeButton
+            width="48%"
+            onPress={decreaseStep}
+            disabled={step === 1}
+            variant="ghost"
+            py={8}
+          >
+            <Text
+              color="gray.400"
+              fontSize="sm"
+              fontWeight={400}
+            >
               Previous
             </Text>
           </NativeButton>
-          <NativeButton width="45%" onPress={increaseStep} disabled={step === 3} variant="solid" bgColor="primary.500"
-                        py={5} rounded={40}
+          <NativeButton
+            width="48%"
+            onPress={increaseStep}
+            disabled={step === 3}
+            variant="solid"
+            bgColor="primary.500"
+            py={6}
+            rounded={40}
           >
             <Text color="gray.900" fontSize="sm" fontWeight={500}>
               Continue
@@ -105,12 +145,12 @@ const SignUp = ({navigation}) => {
 		{step === 3 &&
           <HStack width="100%" space={2} justifyContent="space-between" alignItems="center">
             <NativeButton width="48%" onPress={decreaseStep} variant="ghost" py={8}>
-              <Text color="gray.50" fontSize="sm" fontWeight={500}>
+              <Text color="gray.400" fontSize="sm" fontWeight={400}>
                 Previous
               </Text>
             </NativeButton>
             <View style={{width: "48%"}}>
-              <Button onPress={() => SignUpService(data)}
+              <Button onPress={handleSignUp}
                       disabled={(!(data.email && data.password && data.firstName && data.lastName && data.confirmPassword))}>
                 Create Account
               </Button>

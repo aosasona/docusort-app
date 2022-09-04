@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {Text, Stack, ScrollView} from "native-base";
+import {Text, Stack, ScrollView, useToast} from "native-base";
 import {TouchableOpacity, View} from "react-native";
 import {Button, Layout} from "../../components"
 import PrimaryInput from "../../components/PrimaryInput";
@@ -9,6 +9,7 @@ import {SignInData} from "../../types/Auth";
 
 const SignIn = ({navigation}) => {
   const styles = useAuthStyle();
+  const toast = useToast();
   const [data, setData] = useState<SignInData>({
 	email: "",
 	password: "",
@@ -16,7 +17,7 @@ const SignIn = ({navigation}) => {
   return (
 	<Layout style={styles.container}>
 	  <ScrollView showsVerticalScrollIndicator={false}>
-		<Text color="primary.500" fontSize="5xl" fontWeight={500}>
+		<Text color="primary.500" fontSize="5xl" fontWeight={700}>
 		  Hello again
 		</Text>
 		<Text color="primary.700" fontSize="sm" px={1}>
@@ -42,7 +43,7 @@ const SignIn = ({navigation}) => {
 		</Stack>
 	  </ScrollView>
 	  <View>
-		<Button onPress={() => SignInService(data)} disabled={(!(data.email && data.password))}>
+		<Button onPress={() => SignInService(data, toast)} disabled={(!(data.email && data.password))}>
 		  Continue
 		</Button>
 		<TouchableOpacity onPress={() => navigation.navigate("SignUp")}>

@@ -7,9 +7,9 @@ const useAuthStyle = () => {
 	container: {
 	  flex: 1,
 	  justifyContent: "space-between",
-	  paddingTop: 0.08 * height,
+	  paddingTop: 0.04 * height,
 	  paddingBottom: 0,
-	  paddingHorizontal: 0.05 * width,
+	  paddingHorizontal: 0.04 * width,
 	},
 	headerText: {
 	  color: colors.PRIMARY,

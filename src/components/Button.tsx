@@ -1,12 +1,13 @@
 import {FC} from "react";
-import {Pressable, StyleSheet, Text, TouchableOpacity} from "react-native";
+import {StyleSheet, TouchableOpacity} from "react-native";
+import {Text} from "native-base"
 import {ButtonProps} from "../types/Props";
 import {colors} from "../constants";
 
 const Button: FC<ButtonProps> = ({onPress, children, disabled = false}) => {
   return (
 	<TouchableOpacity style={styles.container} onPress={onPress} disabled={disabled}>
-	  <Text style={styles.text}>{children}</Text>
+	  <Text fontFamily="body" textAlign="center" fontWeight={600} py={3}>{children}</Text>
 	</TouchableOpacity>
   )
 }
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
 	backgroundColor: colors.PRIMARY,
 	fontColor: colors.DARK,
 	paddingVertical: 15,
-	borderRadius: 50,
+	borderRadius: 15,
   },
   text: {
 	backgroundColor: 'transparent',

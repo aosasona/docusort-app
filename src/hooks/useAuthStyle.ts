@@ -9,7 +9,7 @@ const useAuthStyle = () => {
 	  justifyContent: "space-between",
 	  paddingTop: 0.04 * height,
 	  paddingBottom: 0,
-	  paddingHorizontal: 0.04 * width,
+	  paddingHorizontal: 0.08 * width,
 	},
 	headerText: {
 	  color: colors.PRIMARY,
@@ -23,11 +23,11 @@ const useAuthStyle = () => {
 	  paddingBottom: 15,
 	},
 	newAccountText: {
-	  color: colors.PRIMARY,
+	  color: "#FFFFFF",
 	  textAlign: "center",
 	  fontSize: 14,
 	  fontWeight: "500",
-	  paddingVertical: 20,
+	  paddingVertical: 30,
 	},
 	ScrollContainer: {
 	  height: 0.7 * height,

@@ -1,8 +1,10 @@
+import {Urbanist_500Medium} from "@expo-google-fonts/urbanist";
 import {useState} from "react";
-import {Text, Stack, ScrollView, useToast} from "native-base";
+import {Text, Stack, ScrollView, useToast, Heading} from "native-base";
 import {TouchableOpacity, View} from "react-native";
 import {Button, Layout} from "../../components"
 import PrimaryInput from "../../components/PrimaryInput";
+import routes from "../../constants/routes";
 import useAuthStyle from "../../hooks/useAuthStyle";
 import {SignIn as SignInService} from "../../services"
 import {SignInData} from "../../types/Auth";
@@ -17,11 +19,11 @@ const SignIn = ({navigation}) => {
   return (
 	<Layout style={styles.container}>
 	  <ScrollView showsVerticalScrollIndicator={false}>
-		<Text color="primary.500" fontSize="5xl" fontWeight={700}>
-		  Hello again
-		</Text>
-		<Text color="primary.700" fontSize="sm" px={1}>
-		  Fill in your credentials to continue⚡
+		<Heading color="light.200" fontFamily="heading" fontSize="4xl" fontWeight="500">
+		  Log In
+		</Heading>
+		<Text color="muted.600" fontFamily="body" fontSize={14} mt={1}>
+		  Enter your login credentials to sign in to your account
 		</Text>
 
 		<Stack space={6} mt={8}>
@@ -36,7 +38,7 @@ const SignIn = ({navigation}) => {
 			maxLength={20}
 		  />
 		  <TouchableOpacity>
-			<Text color="primary.500" textAlign="left" px={3}>
+			<Text color="primary.600" fontFamily="body" fontSize={13} textAlign="right" px={3}>
 			  Forgot password?
 			</Text>
 		  </TouchableOpacity>
@@ -46,9 +48,9 @@ const SignIn = ({navigation}) => {
 		<Button onPress={() => SignInService(data, toast)} disabled={(!(data.email && data.password))}>
 		  Continue
 		</Button>
-		<TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-		  <Text style={styles.newAccountText}>
-			I don't have an account
+		<TouchableOpacity onPress={() => navigation.navigate(routes.SIGN_UP)}>
+		  <Text color="muted.100" fontFamily="body" fontWeight={600} fontSize={13} textAlign="center" my={8}>
+			Create an account
 		  </Text>
 		</TouchableOpacity>
 	  </View>

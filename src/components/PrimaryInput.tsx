@@ -13,15 +13,16 @@ const PrimaryInput: FC<PrimaryButtonProps> = ({
   return (
 	<Input type={type}
 		   variant="filled"
+		   fontFamily="body"
 		   color="primary.500"
 		   placeholder={placeholder}
-		   placeholderTextColor="primary.800"
-		   borderRadius={40}
+		   placeholderTextColor="muted.700"
+		   borderRadius={15}
 		   fontSize={14}
 		   width="100%"
 		   py={Platform.OS === "ios" ? 7 : 6}
 		   px={8}
-		   bgColor="primary.900"
+		   bgColor="muted.900"
 		   borderWidth={0}
 		   maxLength={maxLength}
 		   onChange={(e) => onChange(e.nativeEvent.text)}

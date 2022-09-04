@@ -1,6 +1,6 @@
 import {
   Box,
-  Button as NativeButton,
+  Button as NativeButton, Heading,
   HStack,
   PresenceTransition,
   Progress,
@@ -14,6 +14,7 @@ import {TouchableOpacity, View} from "react-native";
 import {Button, Layout} from "../../components"
 import PrimaryInput from "../../components/PrimaryInput";
 import {ToastStyles} from "../../constants";
+import routes from "../../constants/routes";
 import useAuthStyle from "../../hooks/useAuthStyle";
 import {SignUp as SignUpService} from "../../services"
 import {SignUpData} from "../../types/Auth";
@@ -74,10 +75,10 @@ const SignUp = ({navigation}) => {
   return (
 	<Layout style={styles.container}>
 	  <ScrollView showsVerticalScrollIndicator={false}>
-		<Text color="primary.500" fontSize="5xl" fontWeight={500}>
-		  Welcome
-		</Text>
-		<Text color="primary.700" fontSize="sm" px={1}>
+		<Heading color="light.200" fontFamily="heading" fontSize="4xl" fontWeight="500">
+		  Get Started
+		</Heading>
+		<Text color="muted.600" fontFamily="body" fontSize={14} mt={1}>
 		  Let's get you started with an account 🫰
 		</Text>
 		<Stack space={6} mt={4}>
@@ -133,9 +134,9 @@ const SignUp = ({navigation}) => {
             onPress={increaseStep}
             disabled={step === 3}
             variant="solid"
-            bgColor="primary.500"
+            backgroundColor="primary.500"
             py={6}
-            rounded={40}
+            rounded={15}
           >
             <Text color="gray.900" fontSize="sm" fontWeight={500}>
               Continue
@@ -157,8 +158,8 @@ const SignUp = ({navigation}) => {
             </View>
           </HStack>
 		}
-		<TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
-		  <Text style={styles.newAccountText}>
+		<TouchableOpacity onPress={() => navigation.navigate(routes.SIGN_IN)}>
+		  <Text color="muted.100" fontFamily="body" fontWeight={600} fontSize={13} textAlign="center" my={8}>
 			I already have an account
 		  </Text>
 		</TouchableOpacity>

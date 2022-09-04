@@ -1,3 +1,3 @@
-import {SignIn, SignUp} from "./Auth";
+import {SignIn, SignUp} from "./AuthService";
 
 export {SignIn, SignUp};

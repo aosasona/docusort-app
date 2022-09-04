@@ -1,9 +1,11 @@
 import {Urbanist_500Medium} from "@expo-google-fonts/urbanist";
 import {useState} from "react";
-import {Text, Stack, ScrollView, useToast, Heading} from "native-base";
+import {Text, Stack, ScrollView, useToast, Heading, Box, Spinner} from "native-base";
 import {TouchableOpacity, View} from "react-native";
+import {handleError} from "../../../utils/ErrorHandler";
 import {Button, Layout} from "../../components"
 import PrimaryInput from "../../components/PrimaryInput";
+import {ToastStyles} from "../../constants";
 import routes from "../../constants/routes";
 import useAuthStyle from "../../hooks/useAuthStyle";
 import {SignIn as SignInService} from "../../services"
@@ -12,10 +14,29 @@ import {SignInData} from "../../types/Auth";
 const SignIn = ({navigation}) => {
   const styles = useAuthStyle();
   const toast = useToast();
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState<SignInData>({
 	email: "",
 	password: "",
   })
+
+  const handleSignIn = async () => {
+	setLoading(true);
+	try {
+	  await SignInService(data, toast);
+	}
+	catch (e) {
+	  const msg = handleError(e);
+	  toast.show({
+		description: msg,
+		...ToastStyles.ERROR,
+	  })
+	}
+	finally {
+	  setLoading(false);
+	}
+  }
+
   return (
 	<Layout style={styles.container}>
 	  <ScrollView showsVerticalScrollIndicator={false}>
@@ -43,9 +64,12 @@ const SignIn = ({navigation}) => {
 			</Text>
 		  </TouchableOpacity>
 		</Stack>
+		{loading && <Box py={8}>
+          <Spinner size="sm"/>
+        </Box>}
 	  </ScrollView>
 	  <View>
-		<Button onPress={() => SignInService(data, toast)} disabled={(!(data.email && data.password))}>
+		<Button onPress={handleSignIn} disabled={(!(data.email && data.password) || loading)}>
 		  Continue
 		</Button>
 		<TouchableOpacity onPress={() => navigation.navigate(routes.SIGN_UP)}>

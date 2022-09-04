@@ -2,7 +2,7 @@ import {useState} from "react";
 import {ImageBackground, useWindowDimensions} from "react-native";
 import AuthModal from "../../../modals/AuthModal";
 import LottieView from 'lottie-react-native';
-import {Box, Text, VStack, IconButton, Flex} from "native-base";
+import {Box, Text, VStack, IconButton, Flex, Actionsheet, useDisclose} from "native-base";
 import {AntDesign} from '@expo/vector-icons';
 
 const fileAnimation = require("../../../assets/animations/file.json")
@@ -11,6 +11,11 @@ const bgImage = require("../../../assets/initial-bg.png")
 const Initial = ({navigation}) => {
   const {width, height} = useWindowDimensions()
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
+  const {
+	isOpen,
+	onOpen,
+	onClose,
+  } = useDisclose();
   return (
 	<>
 	  <ImageBackground source={bgImage} resizeMode="cover">
@@ -49,6 +54,7 @@ const Initial = ({navigation}) => {
 		  </VStack>
 		</VStack>
 	  </ImageBackground>
+
 	  <AuthModal navigation={navigation} visible={isModalVisible} toggleVisibility={() => setIsModalVisible(false)}/>
 	</>
   )

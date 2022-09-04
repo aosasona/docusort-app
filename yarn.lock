@@ -1067,11 +1067,6 @@
   dependencies:
     "@types/hammerjs" "^2.0.36"
 
-"@expo-google-fonts/readex-pro@^0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@expo-google-fonts/readex-pro/-/readex-pro-0.2.2.tgz#cdd7b3269e8f890b456afe825e5cb6ba71a6f5ec"
-  integrity sha512-CvwIU2zTZ2HAdSjGyN1IGLJpPrrO60cAEbVoBu61vQqTmbtxKIfhYEKT92kpwqgBnocSwsoveN0zsSlV8Eulnw==
-
 "@expo-google-fonts/urbanist@^0.2.2":
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/@expo-google-fonts/urbanist/-/urbanist-0.2.2.tgz#267ea6c6921e206db05ade79dd166eeb7dfe8701"
@@ -2739,6 +2734,18 @@
   version "0.16.2"
   resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.2.tgz#1a62f89525723dde24ba1b01b092bf5df8ad4d39"
   integrity sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==
+
+"@types/validate.js@^0.11.0":
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/@types/validate.js/-/validate.js-0.11.0.tgz#121a83aecfdb848f46a4c796644e0da7cb1633c8"
+  integrity sha512-RnMxYwlFMG6jP0+TyJ9PDNfuIzZQqgfNIftyDFhwYQJuHBBuBBevi7fuNC5FVZxwrOV4eJUJuArDlMqIqZInMA==
+  dependencies:
+    validate.js "*"
+
+"@types/validator@^13.7.6":
+  version "13.7.6"
+  resolved "https://registry.yarnpkg.com/@types/validator/-/validator-13.7.6.tgz#631f1acd15cbac9cb0a114da7e87575f1c95b46a"
+  integrity sha512-uBsnWETsUagQ0n6G2wcXNIufpTNJir0zqzG4p62fhnwzs48d/iuOWEEo0d3iUxN7D+9R/8CSvWGKS+KmaD0mWA==
 
 "@types/yargs-parser@*":
   version "21.0.0"
@@ -8077,6 +8084,16 @@ validate-npm-package-name@^3.0.0:
   integrity sha512-M6w37eVCMMouJ9V/sdPGnC5H4uDr73/+xdq0FBLO3TFFX1+7wiUY6Es328NN+y43tmY+doUdN9g9J21vqB7iLw==
   dependencies:
     builtins "^1.0.3"
+
+validate.js@*:
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/validate.js/-/validate.js-0.13.1.tgz#b58bfac04a0f600a340f62e5227e70d95971e92a"
+  integrity sha512-PnFM3xiZ+kYmLyTiMgTYmU7ZHkjBZz2/+F0DaALc/uUtVzdCt1wAosvYJ5hFQi/hz8O4zb52FQhHZRC+uVkJ+g==
+
+validator.js@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/validator.js/-/validator.js-2.0.4.tgz#c9f72164aadb503a1a7be5b17b4beff3616e542e"
+  integrity sha512-6gknFyS1WrkXPlnpcb3hecx2LD4j8dEO+G9/yEJ3RYzUUtV4s3icO/IrAzTZtT9BHRSTNGRtg5JORIt+njMpIw==
 
 vary@~1.1.2:
   version "1.1.2"

@@ -11,6 +11,7 @@ import {
 } from "native-base";
 import {useState} from "react";
 import {TouchableOpacity, View} from "react-native";
+import {handleError} from "../../../utils/ErrorHandler";
 import {Button, Layout} from "../../components"
 import PrimaryInput from "../../components/PrimaryInput";
 import {ToastStyles} from "../../constants";
@@ -60,10 +61,13 @@ const SignUp = ({navigation}) => {
 	setLoading(true);
 	try {
 	  await SignUpService(data, toast);
+	  navigation.navigate(routes.SIGN_IN);
 	}
-	catch (e) {
+	catch (e: any) {
+	  console.log(e);
+	  const msg = handleError(e);
 	  toast.show({
-		description: e.message,
+		description: msg,
 		...ToastStyles.ERROR,
 	  })
 	}
@@ -117,26 +121,37 @@ const SignUp = ({navigation}) => {
           <NativeButton
             width="48%"
             onPress={decreaseStep}
-            disabled={step === 1}
-            variant="ghost"
+            disabled={step < 2 || loading}
+            variant="solid"
+            backgroundColor="transparent"
             py={8}
+            _disabled={{
+			  backgroundColor: "red.700",
+			}}
+            _pressed={{
+			  backgroundColor: "transparent",
+			}}
           >
             <Text
               color="gray.400"
               fontSize="sm"
               fontWeight={400}
             >
-              Previous
+              Go Back
             </Text>
           </NativeButton>
           <NativeButton
             width="48%"
             onPress={increaseStep}
-            disabled={step === 3}
+            disabled={step === 3 || loading}
             variant="solid"
             backgroundColor="primary.500"
             py={6}
             rounded={15}
+            isLoading={loading}
+            _pressed={{
+			  backgroundColor: "primary.700",
+			}}
           >
             <Text color="gray.900" fontSize="sm" fontWeight={500}>
               Continue
@@ -145,14 +160,15 @@ const SignUp = ({navigation}) => {
         </HStack>}
 		{step === 3 &&
           <HStack width="100%" space={2} justifyContent="space-between" alignItems="center">
-            <NativeButton width="48%" onPress={decreaseStep} variant="ghost" py={8}>
+            <NativeButton width="48%" onPress={decreaseStep} variant="ghost" py={8}
+                          _pressed={{backgroundColor: "transparent"}}>
               <Text color="gray.400" fontSize="sm" fontWeight={400}>
-                Previous
+                Go Back
               </Text>
             </NativeButton>
             <View style={{width: "48%"}}>
               <Button onPress={handleSignUp}
-                      disabled={(!(data.email && data.password && data.firstName && data.lastName && data.confirmPassword))}>
+                      disabled={(!(data.email && data.password && data.firstName && data.lastName && data.confirmPassword) || loading)}>
                 Create Account
               </Button>
             </View>

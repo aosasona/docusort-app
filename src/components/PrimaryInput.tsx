@@ -18,10 +18,10 @@ const PrimaryInput: FC<PrimaryButtonProps> = ({
 		   placeholder={placeholder}
 		   placeholderTextColor="muted.700"
 		   borderRadius={15}
-		   fontSize={14}
+		   fontSize={15}
 		   width="100%"
 		   py={Platform.OS === "ios" ? 7 : 6}
-		   px={8}
+		   px={5}
 		   bgColor="muted.900"
 		   borderWidth={0}
 		   maxLength={maxLength}

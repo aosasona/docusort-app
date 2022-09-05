@@ -29,18 +29,20 @@ export const SignUp = async (data: SignUpData, toast) => {
 	throw new ValidationError(validationErrors[0])
   }
 
-  const {error} = await supabase.auth.signUp({
+  const {error, data: userData} = await supabase.auth.signUp({
 	email,
 	password,
   })
+
   if (error) {
 	throw new ValidationError(error?.message)
   }
+  const id = userData?.user?.id
 
-  const {data: saveData, error: saveError} = await supabase.from("users").insert([{
+  const {data: saveData, error: saveError} = await supabase.from("profile").insert([{
+	id,
 	first_name: firstName,
 	last_name: lastName,
-	email,
   }])
 
   if (saveError) {

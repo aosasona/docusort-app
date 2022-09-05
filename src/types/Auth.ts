@@ -9,5 +9,10 @@ export interface SignUpData {
   email: string;
   password: string;
   confirmPassword: string;
+}
 
+export enum AuthStatus {
+  UNCHECKED,
+  SIGNED_IN,
+  SIGNED_OUT,
 }

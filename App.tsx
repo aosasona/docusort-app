@@ -21,22 +21,25 @@ import {
 } from '@expo-google-fonts/urbanist';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import * as SplashScreen from 'expo-splash-screen';
 import {extendTheme, NativeBaseProvider} from "native-base";
 import {useEffect, useState} from "react";
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import 'react-native-url-polyfill/auto'
+import AppTabs from "./src/components/AppTabs";
 import routes from "./src/constants/routes";
 import {newColorTheme, newFontConfig, newFonts} from "./src/constants/theme";
-
-import {Home, SignIn, SignUp} from './src/pages';
 import Initial from "./src/pages/Initial";
+import {getUserProfile} from "./src/services/ProfileService";
 import {AuthStatus} from "./src/types/Auth";
 import supabase from "./utils/Supabase";
 
+import {SignIn, SignUp} from "./src/pages/Auth";
+
 const Stack = createNativeStackNavigator();
 
-SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync().then();
 
 export default function App() {
   const [authStatus, setAuthStatus] = useState(AuthStatus.UNCHECKED)
@@ -62,23 +65,33 @@ export default function App() {
   })
 
   useEffect(() => {
+	supabase.auth.onAuthStateChange(async (event, session) => {
+	  if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") {
+		return setAuthStatus(AuthStatus.SIGNED_IN);
+	  }
+	})
+  }, [])
+
+  useEffect(() => {
 	(async () => {
-	  const session = await supabase.auth.getSession();
-	  if (session) {
-		setAuthStatus(AuthStatus.SIGNED_IN);
+	  const {data, error} = await supabase.auth.getSession();
+	  if (error) {
+		return setAuthStatus(AuthStatus.SIGNED_OUT)
+	  } else if (!error && !data.session) {
+		return setAuthStatus(AuthStatus.SIGNED_OUT)
 	  } else {
-		setAuthStatus(AuthStatus.SIGNED_OUT);
+		return setAuthStatus(AuthStatus.SIGNED_IN);
 	  }
 	})()
   }, [])
 
   useEffect(() => {
 	(async () => {
-	  if (fontsLoaded && (authStatus === AuthStatus.SIGNED_IN || authStatus === AuthStatus.SIGNED_OUT)) {
+	  if (fontsLoaded && (authStatus !== AuthStatus.UNCHECKED)) {
 		await SplashScreen.hideAsync();
 	  }
 	})()
-  }, [fontsLoaded])
+  }, [fontsLoaded, authStatus])
 
 
   if (!fontsLoaded) {
@@ -98,12 +111,32 @@ export default function App() {
 	<NativeBaseProvider theme={theme}>
 	  <SafeAreaProvider>
 		<NavigationContainer>
-		  <Stack.Navigator initialRouteName={authStatus === AuthStatus.SIGNED_IN ? routes.HOME : routes.INITIAL}
-						   screenOptions={{headerShown: false}}>
-			<Stack.Screen name={routes.HOME} component={Home}/>
-			<Stack.Screen name={routes.SIGN_IN} component={SignIn}/>
-			<Stack.Screen name={routes.SIGN_UP} component={SignUp}/>
-			<Stack.Screen name={routes.INITIAL} component={Initial}/>
+		  <Stack.Navigator
+			initialRouteName={authStatus === AuthStatus.SIGNED_IN ? routes.APP : routes.INITIAL}
+			screenOptions={{headerShown: false}}
+		  >
+
+			{authStatus !== AuthStatus.UNCHECKED ? <Stack.Screen
+				name={routes.APP}
+				component={AppTabs}
+			  />
+
+			  : (<>
+				<Stack.Screen
+				  name={routes.SIGN_IN}
+				  component={SignIn}
+				/>
+				<Stack.Screen
+				  name={routes.SIGN_UP}
+				  component={SignUp}
+				/>
+				<Stack.Screen
+				  name={routes.INITIAL}
+				  component={Initial}
+				/>
+			  </>)
+			}
+
 		  </Stack.Navigator>
 		</NavigationContainer>
 	  </SafeAreaProvider>

@@ -12,10 +12,26 @@ export const SignIn = async (data: SignInData, toast) => {
   let {email, password} = data
 
   const validationErrors = validate(data, signinSchema)
+  console.log(validationErrors)
 
   if (validationErrors) {
 	throw new ValidationError(validationErrors)
   }
+
+  const {error, data: userData} = await supabase.auth.signInWithPassword({
+	email,
+	password,
+  })
+
+  if (error) {
+	throw new ValidationError(error?.message)
+  }
+
+  toast.show({
+	description: "Welcome Back!",
+	...ToastStyles.SUCCESS,
+  })
+  return
 }
 
 export const SignUp = async (data: SignUpData, toast) => {
@@ -26,7 +42,7 @@ export const SignUp = async (data: SignUpData, toast) => {
   const validationErrors = validate(data, signupSchema)
 
   if (validationErrors) {
-	throw new ValidationError(validationErrors[0])
+	throw new ValidationError(validationErrors)
   }
 
   const {error, data: userData} = await supabase.auth.signUp({

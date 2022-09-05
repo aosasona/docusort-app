@@ -3,7 +3,8 @@ import {useState} from "react";
 import {Text, Stack, ScrollView, useToast, Heading, Box, Spinner} from "native-base";
 import {TouchableOpacity, View} from "react-native";
 import {handleError} from "../../../utils/ErrorHandler";
-import {Button, Layout} from "../../components"
+import Layout from "../../components/Layout"
+import Button from "../../components/Button";
 import PrimaryInput from "../../components/PrimaryInput";
 import {ToastStyles} from "../../constants";
 import routes from "../../constants/routes";

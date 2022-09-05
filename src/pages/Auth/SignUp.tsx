@@ -12,7 +12,8 @@ import {
 import {useState} from "react";
 import {TouchableOpacity, View} from "react-native";
 import {handleError} from "../../../utils/ErrorHandler";
-import {Button, Layout} from "../../components"
+import Layout from "../../components/Layout"
+import Button from "../../components/Button";
 import PrimaryInput from "../../components/PrimaryInput";
 import {ToastStyles} from "../../constants";
 import routes from "../../constants/routes";
@@ -64,7 +65,6 @@ const SignUp = ({navigation}) => {
 	  navigation.navigate(routes.SIGN_IN);
 	}
 	catch (e: any) {
-	  console.log(e);
 	  const msg = handleError(e);
 	  toast.show({
 		description: msg,

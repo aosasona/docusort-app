@@ -1,10 +1,12 @@
 import {InterfaceToastProps} from "native-base/lib/typescript/components/composites/Toast";
 
 export const colors = {
+  LIGHT: "#FFFFFF",
   PRIMARY: '#FFC580',
   SECONDARY: '#F5F5F5',
-  FADED: '#FFC58099',
-  DARK: '#090909',
+  FADED: '#FFC58077',
+  DARK: '#010101',
+  BLACK: "#090909",
   INPUT_BG: "#D5B25822",
 }
 export const defaultStyles = {

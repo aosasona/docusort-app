@@ -1,13 +1,13 @@
 import {Text, VStack} from "native-base";
-import Modal from "../src/components/Modal";
-import Button from "../src/components/Button"
-import routes from "../src/constants/routes";
+import Modal from "../components/Modal";
+import Button from "../components/Button"
+import routes from "../constants/routes";
 
 const AuthModal = ({visible, navigation, toggleVisibility}) => {
 
   const navigate = (route: string) => {
 	toggleVisibility()
-	navigation.navigate(route)
+	navigation.push(route)
   }
 
   return (

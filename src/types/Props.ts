@@ -1,7 +1,9 @@
+import {Session} from "@supabase/supabase-js";
 import React from 'react';
 
 export interface LayoutProps {
   children: React.ReactNode;
+  showTabs?: boolean;
   style?: any
 }
 
@@ -17,4 +19,9 @@ export interface PrimaryButtonProps {
   maxLength?: number;
   disabled?: boolean;
   placeholder: string;
+}
+
+export interface BasePageProps {
+  session?: Session
+  profile?: any
 }

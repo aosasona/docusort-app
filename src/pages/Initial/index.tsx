@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {ImageBackground, useWindowDimensions} from "react-native";
-import AuthModal from "../../../modals/AuthModal";
+import AuthModal from "../../modals/AuthModal";
 import LottieView from 'lottie-react-native';
 import {Box, Text, VStack, IconButton, Flex, Actionsheet, useDisclose} from "native-base";
 import {AntDesign} from '@expo/vector-icons';

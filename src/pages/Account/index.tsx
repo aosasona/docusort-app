@@ -1,7 +1,20 @@
 import {AntDesign} from "@expo/vector-icons";
 import Constants from "expo-constants"
 import {RefreshControl, StyleSheet} from 'react-native';
-import {Box, Button, HStack, Icon, Pressable, ScrollView, Text, useToast, VStack} from "native-base";
+import {
+  Box,
+  Button,
+  Divider,
+  Heading,
+  HStack,
+  Icon,
+  Pressable,
+  ScrollView,
+  Switch,
+  Text,
+  useToast,
+  VStack,
+} from "native-base";
 import {FC, useState} from "react";
 import Layout from "../../components/Layout";
 import ImageInfoModal from "../../modals/ImageInfoModal";
@@ -24,6 +37,22 @@ const Account: FC<BasePageProps> = ({session, profile}) => {
 	await SignOut(toast);
   }
 
+  const tierColor = {
+	0: "gray.400",
+	1: "#67C499",
+	2: "#AB95FF",
+  }
+
+  const tierHex = tierColor[profile?.tier || 0]
+
+  const gravatarStyle = {
+	width: 130,
+	height: 130,
+	borderWidth: 5,
+	borderColor: "#DDDDDD",
+	borderRadius: 100,
+  }
+
   return (
 	<ScrollView
 	  pt={12}
@@ -34,56 +63,70 @@ const Account: FC<BasePageProps> = ({session, profile}) => {
 		onRefresh={onRefresh}
 	  />}
 	>
-	  <Layout>
+	  <Layout key={key}>
 		<VStack space={12}>
 		  <VStack space={5} alignItems={"center"}>
 			<Pressable onPress={() => setImageInfoVisibility(true)}>
 			  <Gravatar
 				options={{
 				  email: session?.user?.email,
-				  parameters: {"size": "200", "d": "mm"},
+				  parameters: {"size": "200", "d": "retro"},
 				  secure: true,
 				}}
-				key={key}
-				style={styles.profileImage}
+
+				style={{
+				  ...gravatarStyle,
+				}}
 			  />
 			</Pressable>
-			<VStack space={3} alignItems="center">
-			  <Text fontFamily="body" color="muted.200" fontSize={26} fontWeight={600}>
+			<VStack space={2} alignItems="center">
+			  <Text fontFamily="body" color="muted.200" fontSize={28} fontWeight={600}>
 				{profile.first_name} {profile.last_name}
 			  </Text>
-			  <Box backgroundColor="muted.900" rounded={20} px={6} py={2} opacity={0.75}>
-				<Text color="muted.500" fontSize={12} fontWeight={500}>
-				  {session?.user?.email}
+			  <Box backgroundColor={tierHex} rounded={20} px={3} py={2} opacity={1}>
+				<Text color="muted.900" fontSize={12} fontWeight={500}>
+				  {profile.tier === 0 ? "Freemium Plan" : profile.tier === 1 ? "Premium Plan" : "Pro Plan"}
 				</Text>
 			  </Box>
 			</VStack>
 		  </VStack>
 
-		  <VStack space={4} mx={4}>
-			<PageButton>
-			  <Icon as={AntDesign} name="edit" size={4} color="muted.500"/>
-			  <Text fontFamily="body" color="muted.500" fontWeight={500} fontSize={15}>Edit profile</Text>
-			</PageButton>
+		  <Box mx={4}>
+			<Heading color="muted.700" fontSize={18} px={2}>Settings</Heading>
+			<Box px={1}>
+			  <Divider bg="muted.800" mt={2}/>
+			</Box>
 
-			<PageButton>
-			  <Icon as={AntDesign} name="key" size={4} color="muted.500"/>
-			  <Text fontFamily="body" color="muted.500" fontWeight={500} fontSize={15}>Change password</Text>
-			</PageButton>
+			<VStack space={4} mt={4}>
+			  <PageButton>
+				<Icon as={AntDesign} name="edit" size={4} color="muted.500"/>
+				<Text fontFamily="body" color="muted.500" fontWeight={500} fontSize={15}>Edit profile</Text>
+			  </PageButton>
 
-			<Button backgroundColor="red.500" rounded={15} py={6} _pressed={{opacity: 0.75}}
-					onPress={signOut}>
-			  <Text fontFamily="body" color="red.50" fontWeight={500} fontSize={15}>Sign Out</Text>
-			</Button>
+			  <PageButton>
+				<Icon as={AntDesign} name="key" size={4} color="muted.500"/>
+				<Text fontFamily="body" color="muted.500" fontWeight={500} fontSize={15}>Change password</Text>
+			  </PageButton>
 
-			<Button backgroundColor="transparent" rounded={15} py={6} _pressed={{opacity: 0.75}}>
-			  <Text fontFamily="body" color="red.500" fontWeight={500} fontSize={15}>Delete Account</Text>
-			</Button>
-		  </VStack>
+			</VStack>
+		  </Box>
 		</VStack>
-		<Text color="muted.600" fontSize={13} textAlign="center" py={16}>
+
+
+		<VStack space={4} mx={4} mt={20}>
+		  <Button backgroundColor="red.500" rounded={15} py={6} _pressed={{opacity: 0.75}}
+				  onPress={signOut}>
+			<Text fontFamily="body" color="red.50" fontWeight={500} fontSize={15}>Sign Out</Text>
+		  </Button>
+
+		  <Button backgroundColor="transparent" rounded={15} py={6} _pressed={{opacity: 0.75}}>
+			<Text fontFamily="body" color="red.500" fontWeight={500} fontSize={15}>Delete Account</Text>
+		  </Button>
+		</VStack>
+		<Text color="muted.600" fontSize={13} textAlign="center" py={10}>
 		  Version {Constants.manifest.version}
 		</Text>
+
 	  </Layout>
 	  <ImageInfoModal visible={imageInfoVisibility} onClose={() => setImageInfoVisibility(false)}/>
 	</ScrollView>
@@ -102,15 +145,5 @@ const PageButton = ({children, ...props}) => (
 	</HStack>
   </Button>
 )
-
-const styles = StyleSheet.create({
-  profileImage: {
-	width: 130,
-	height: 130,
-	borderWidth: 4,
-	borderColor: "#DDDDDD",
-	borderRadius: 100,
-  },
-})
 
 export default Account

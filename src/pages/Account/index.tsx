@@ -60,8 +60,8 @@ const Account: FC<BasePageProps> = ({session, profile}) => {
 
 const styles = StyleSheet.create({
   profileImage: {
-	width: 160,
-	height: 160,
+	width: 140,
+	height: 140,
 	borderWidth: 6,
 	borderColor: "#DDDDDD",
 	borderRadius: 100,

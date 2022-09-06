@@ -21,7 +21,6 @@ import {
 } from '@expo-google-fonts/urbanist';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import * as SplashScreen from 'expo-splash-screen';
 import {extendTheme, NativeBaseProvider} from "native-base";
 import {useEffect, useState} from "react";
@@ -30,12 +29,11 @@ import 'react-native-url-polyfill/auto'
 import AppTabs from "./src/components/AppTabs";
 import routes from "./src/constants/routes";
 import {newColorTheme, newFontConfig, newFonts} from "./src/constants/theme";
-import Initial from "./src/pages/Initial";
-import {getUserProfile} from "./src/services/ProfileService";
-import {AuthStatus} from "./src/types/Auth";
-import supabase from "./utils/Supabase";
 
 import {SignIn, SignUp} from "./src/pages/Auth";
+import Initial from "./src/pages/Initial";
+import {AuthStatus} from "./src/types/Auth";
+import supabase from "./utils/Supabase";
 
 const Stack = createNativeStackNavigator();
 
@@ -116,7 +114,7 @@ export default function App() {
 			screenOptions={{headerShown: false}}
 		  >
 
-			{authStatus !== AuthStatus.UNCHECKED ? <Stack.Screen
+			{authStatus !== AuthStatus.UNCHECKED && authStatus !== AuthStatus.SIGNED_OUT ? <Stack.Screen
 				name={routes.APP}
 				component={AppTabs}
 			  />

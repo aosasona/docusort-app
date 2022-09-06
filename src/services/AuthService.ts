@@ -71,3 +71,20 @@ export const SignUp = async (data: SignUpData, toast) => {
   })
   return
 }
+
+export const SignOut = async (toast) => {
+  const {error} = await supabase.auth.signOut()
+
+  if (error) {
+	toast.show({
+	  description: "Something went wrong",
+	  ...ToastStyles.ERROR,
+	})
+  }
+
+  toast.show({
+	description: "Signed Out Successfully",
+	...ToastStyles.SUCCESS,
+  })
+  return
+}

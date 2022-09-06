@@ -117,7 +117,7 @@ const AppTabs = ({navigation}) => {
 
 	  <Tab.Screen
 		name={routes.ACCOUNT}
-		children={() => <Account session={session}/>}
+		children={() => <Account session={session} profile={profile}/>}
 		options={{
 		  title: "Account",
 		  tabBarIcon: ({focused}) => <Icon

@@ -1,3 +1,4 @@
+import {Container} from "native-base";
 import React, {FC} from 'react';
 import {StatusBar} from "react-native";
 import {SafeAreaView} from 'react-native-safe-area-context';

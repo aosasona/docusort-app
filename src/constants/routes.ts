@@ -9,6 +9,7 @@ const routes = {
   SEARCH: "app/search",
   ID_PAGE: "app/folders/id",
   FOLDER_PAGE: "app/folders/folder",
+  SET_PIN: "app/pin/set",
 }
 
 export default routes

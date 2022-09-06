@@ -19,6 +19,9 @@ const Modal = ({
   return (
 	<>
 	  <RNModal
+		hideModalContentWhileAnimating={true}
+		avoidKeyboard={true}
+		coverScreen={true}
 		statusBarTranslucent={true}
 		onBackdropPress={toggleVisibility}
 		onSwipeComplete={toggleVisibility}

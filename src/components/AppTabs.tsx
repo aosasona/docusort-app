@@ -7,7 +7,6 @@ import supabase from "../../utils/Supabase";
 import {colors} from "../constants";
 import routes from "../constants/routes";
 import Account from "../pages/Account";
-import IDPage from "../pages/Directories/ID";
 import Home from "../pages/Home";
 import Search from "../pages/Search";
 import {getUserProfile} from "../services/ProfileService";

@@ -63,12 +63,18 @@ export default function App() {
   })
 
   useEffect(() => {
-	supabase.auth.onAuthStateChange(async (event, session) => {
+	const {data: authListener} = supabase.auth.onAuthStateChange(async (event, session) => {
 	  if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") {
 		return setAuthStatus(AuthStatus.SIGNED_IN);
 	  }
+	  if (event === "SIGNED_OUT" || event === "USER_DELETED") {
+		return setAuthStatus(AuthStatus.SIGNED_OUT);
+	  }
 	})
-  }, [])
+	return () => {
+	  if (authListener) authListener.subscription.unsubscribe;
+	}
+  }, [supabase.auth])
 
   useEffect(() => {
 	(async () => {
@@ -113,26 +119,26 @@ export default function App() {
 			initialRouteName={authStatus === AuthStatus.SIGNED_IN ? routes.APP : routes.INITIAL}
 			screenOptions={{headerShown: false}}
 		  >
-
-			{authStatus !== AuthStatus.UNCHECKED && authStatus !== AuthStatus.SIGNED_OUT ? <Stack.Screen
-				name={routes.APP}
-				component={AppTabs}
-			  />
-
-			  : (<>
-				<Stack.Screen
-				  name={routes.SIGN_IN}
-				  component={SignIn}
+			{
+			  authStatus === AuthStatus.SIGNED_IN
+				? <Stack.Screen
+				  name={routes.APP}
+				  component={AppTabs}
 				/>
-				<Stack.Screen
-				  name={routes.SIGN_UP}
-				  component={SignUp}
-				/>
-				<Stack.Screen
-				  name={routes.INITIAL}
-				  component={Initial}
-				/>
-			  </>)
+				: (<>
+				  <Stack.Screen
+					name={routes.SIGN_IN}
+					component={SignIn}
+				  />
+				  <Stack.Screen
+					name={routes.SIGN_UP}
+					component={SignUp}
+				  />
+				  <Stack.Screen
+					name={routes.INITIAL}
+					component={Initial}
+				  />
+				</>)
 			}
 
 		  </Stack.Navigator>

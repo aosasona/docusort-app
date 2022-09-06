@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {Trim} from "../../utils/Formatter";
 import supabase from "../../utils/Supabase";
 import {validate} from "../../utils/Validate";
@@ -73,13 +74,17 @@ export const SignUp = async (data: SignUpData, toast) => {
 }
 
 export const SignOut = async (toast) => {
+
   const {error} = await supabase.auth.signOut()
+
+  // await AsyncStorage.clear()
 
   if (error) {
 	toast.show({
 	  description: "Something went wrong",
 	  ...ToastStyles.ERROR,
 	})
+	return
   }
 
   toast.show({

@@ -19,6 +19,7 @@ export interface PrimaryButtonProps {
   maxLength?: number;
   disabled?: boolean;
   placeholder: string;
+  extraProps?: any;
 }
 
 export interface BasePageProps {

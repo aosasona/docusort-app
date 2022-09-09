@@ -9,6 +9,7 @@ const PrimaryInput: FC<PrimaryButtonProps> = ({
   placeholder,
   disabled = false,
   onChange,
+  extraProps,
 }) => {
   return (
 	<Input
@@ -32,6 +33,7 @@ const PrimaryInput: FC<PrimaryButtonProps> = ({
 		borderWidth: 1,
 		borderColor: "primary.600",
 	  }}
+	  {...extraProps}
 	/>
   )
 }

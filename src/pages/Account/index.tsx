@@ -107,27 +107,27 @@ const Account: FC<BasePageProps> = ({navigation}) => {
 			<VStack space={1} mt={2}>
 			  <PageButton onPress={() => setPersonalDetailVisibility(true)}>
 				<Icon as={AntDesign} name="edit" size={5} color="muted.400"/>
-				<Text color="muted.400" fontWeight={500} fontSize={16}>Personal details</Text>
+				<Text color="muted.500" fontWeight={500} fontSize={16}>Personal details</Text>
 			  </PageButton>
 
 			  <PageButton>
 				<Icon as={AntDesign} name="key" size={5} color="muted.400"/>
-				<Text color="muted.400" fontWeight={500} fontSize={15}>Change password</Text>
+				<Text color="muted.500" fontWeight={500} fontSize={15}>Change password</Text>
 			  </PageButton>
 
 			  <PageButton>
 				<Icon as={Ionicons} name="keypad" size={5} color="muted.400"/>
-				<Text color="muted.400" fontWeight={500} fontSize={15}>Change pin</Text>
+				<Text color="muted.500" fontWeight={500} fontSize={15}>Change pin</Text>
 			  </PageButton>
 
 			  <PageButton>
 				<Icon as={Ionicons} name="ios-finger-print" size={5} color="muted.400"/>
-				<Text color="muted.400" fontWeight={500} fontSize={15}>Biometrics settings</Text>
+				<Text color="muted.500" fontWeight={500} fontSize={15}>Biometrics settings</Text>
 			  </PageButton>
 
 			  <PageButton>
 				<Icon as={Ionicons} name="help" size={5} color="muted.400"/>
-				<Text color="muted.400" fontWeight={500} fontSize={15}>Help & FAQs</Text>
+				<Text color="muted.500" fontWeight={500} fontSize={15}>Help & FAQs</Text>
 			  </PageButton>
 
 			</VStack>

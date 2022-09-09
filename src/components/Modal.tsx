@@ -1,4 +1,4 @@
-import {Box} from "native-base";
+import {Box, ScrollView} from "native-base";
 import React from "react";
 import {View, StyleSheet, Dimensions} from "react-native";
 import {default as RNModal} from "react-native-modal";
@@ -26,7 +26,7 @@ const Modal = ({
 		onBackdropPress={toggleVisibility}
 		onSwipeComplete={toggleVisibility}
 		swipeDirection={["down"]}
-		backdropOpacity={0.5}
+		backdropOpacity={0.75}
 		useNativeDriverForBackdrop
 		isVisible={visible}
 		style={{
@@ -37,9 +37,11 @@ const Modal = ({
 		  marginVertical: 0,
 		}}
 	  >
-		<Box backgroundColor="muted.900" roundedTop={30} px={5} py={4}>
+		<Box backgroundColor="muted.900" roundedTop={30} px={5} py={4} maxHeight={height * 0.9}>
 		  <Box width={10} height={1} backgroundColor="muted.700" rounded="sm" alignSelf="center" mb={1}/>
-		  {children}
+		  <ScrollView showsVerticalScrollIndicator={false} maxHeight={height * 0.9}>
+			{children}
+		  </ScrollView>
 		</Box>
 	  </RNModal>
 	</>

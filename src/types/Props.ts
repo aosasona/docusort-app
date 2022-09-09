@@ -13,12 +13,12 @@ export interface ButtonProps {
   disabled?: boolean;
 }
 
-export interface PrimaryButtonProps {
-  onChange: (e?: any) => void;
+export interface PrimaryInputProps {
+  onChange?: (e?: any) => void;
   type?: "password" | "text";
   maxLength?: number;
   disabled?: boolean;
-  placeholder: string;
+  placeholder?: string;
   extraProps?: any;
 }
 
@@ -26,4 +26,22 @@ export interface BasePageProps {
   session?: Session
   profile?: any
   navigation?: any
+}
+
+export interface PinInputProps {
+  length: number;
+  value: string;
+}
+
+export interface KeypadProps {
+  max: number;
+  value: string;
+  setValue: (value: string) => void;
+  onCompleted?: () => void;
+}
+
+export interface KeypadInputProps {
+  value: number,
+  onPress: (e: string) => any,
+  isFilled: boolean
 }

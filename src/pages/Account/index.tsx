@@ -1,32 +1,16 @@
 import {AntDesign, Ionicons} from "@expo/vector-icons";
 import Constants from "expo-constants"
-import {RefreshControl, StyleSheet} from 'react-native';
-import {
-  Box,
-  Button,
-  Divider,
-  Heading,
-  HStack,
-  Icon,
-  Pressable,
-  ScrollView,
-  Switch,
-  Text,
-  useToast,
-  VStack,
-} from "native-base";
+import {Box, Button, Heading, HStack, Icon, Pressable, ScrollView, Text, useToast, VStack} from "native-base";
 import {FC, useContext, useState} from "react";
+import {RefreshControl} from 'react-native';
+import {Gravatar} from 'react-native-gravatar';
 import AppLayout from "../../components/AppLayout";
-import Layout from "../../components/Layout";
 import {reducerActions} from "../../constants/actions";
-import routes from "../../constants/routes";
 import {GlobalContext} from "../../contexts/GlobalContext";
 import ImageInfoModal from "../../modals/ImageInfoModal";
 import PersonalDetailsModal from "../../modals/PersonalDetailsModal";
 import {SignOut} from "../../services/AuthService";
-import {getUserProfile} from "../../services/ProfileService";
 import {BasePageProps} from "../../types/Props";
-import {Gravatar} from 'react-native-gravatar';
 
 const Account: FC<BasePageProps> = ({navigation}) => {
   const toast = useToast();
@@ -100,34 +84,58 @@ const Account: FC<BasePageProps> = ({navigation}) => {
 			</VStack>
 		  </VStack>
 		</VStack>
-		<Box bg="muted.900" rounded={40} px={5} pt={8} pb={5} mt={16}>
+		<Box bg="muted.900" rounded={40} px={5} py={5} mt={16}>
 		  <Box>
-			<Heading color="muted.600" fontSize={16} fontWeight={600} px={2} py={1}>SETTINGS</Heading>
+			<VStack space={1}>
 
-			<VStack space={1} mt={2}>
 			  <PageButton onPress={() => setPersonalDetailVisibility(true)}>
 				<Icon as={AntDesign} name="edit" size={5} color="muted.400"/>
-				<Text color="muted.500" fontWeight={500} fontSize={16}>Personal details</Text>
+				<VStack>
+				  <PageButtonHeader>Personal details</PageButtonHeader>
+				  <PageButtonDescription>
+					Edit your personal/profile details
+				  </PageButtonDescription>
+				</VStack>
 			  </PageButton>
 
 			  <PageButton>
 				<Icon as={AntDesign} name="key" size={5} color="muted.400"/>
-				<Text color="muted.500" fontWeight={500} fontSize={15}>Change password</Text>
+				<VStack>
+				  <PageButtonHeader>Change password</PageButtonHeader>
+				  <PageButtonDescription>
+					Protect your account by changing your password
+				  </PageButtonDescription>
+				</VStack>
 			  </PageButton>
 
 			  <PageButton>
 				<Icon as={Ionicons} name="keypad" size={5} color="muted.400"/>
-				<Text color="muted.500" fontWeight={500} fontSize={15}>Change pin</Text>
+				<VStack>
+				  <PageButtonHeader>Change pin</PageButtonHeader>
+				  <PageButtonDescription>
+					Keep your files safe by setting a new pin
+				  </PageButtonDescription>
+				</VStack>
 			  </PageButton>
 
 			  <PageButton>
 				<Icon as={Ionicons} name="ios-finger-print" size={5} color="muted.400"/>
-				<Text color="muted.500" fontWeight={500} fontSize={15}>Biometrics settings</Text>
+				<VStack>
+				  <PageButtonHeader>Biometrics settings</PageButtonHeader>
+				  <PageButtonDescription>
+					Manage your biometrics authentication settings on this device
+				  </PageButtonDescription>
+				</VStack>
 			  </PageButton>
 
 			  <PageButton>
 				<Icon as={Ionicons} name="help" size={5} color="muted.400"/>
-				<Text color="muted.500" fontWeight={500} fontSize={15}>Help & FAQs</Text>
+				<VStack>
+				  <PageButtonHeader>Help & FAQs</PageButtonHeader>
+				  <PageButtonDescription>
+					Get help or read our Frequently Asked Questions
+				  </PageButtonDescription>
+				</VStack>
 			  </PageButton>
 
 			</VStack>
@@ -160,7 +168,7 @@ const PageButton = ({children, ...props}) => (
 	backgroundColor="transparent"
 	justifyContent="flex-start"
 	rounded={15}
-	py={6}
+	py={5}
 	_pressed={{opacity: 0.7}}
 	{...props}
   >
@@ -168,6 +176,18 @@ const PageButton = ({children, ...props}) => (
 	  {children}
 	</HStack>
   </Button>
+)
+
+const PageButtonHeader = ({children}) => (
+  <Text color="muted.400" fontWeight={500} fontSize={16}>
+	{children}
+  </Text>
+)
+
+const PageButtonDescription = ({children}) => (
+  <Text color="muted.600" fontWeight={400} fontSize={13}>
+	{children}
+  </Text>
 )
 
 export default Account

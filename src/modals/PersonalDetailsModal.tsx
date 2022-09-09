@@ -56,20 +56,26 @@ const PersonalDetailsModal = ({visible, onClose}) => {
 		  Personal <Text color="primary.500">details</Text>
 		</Heading>
 		<Divider orientation="horizontal" bg="muted.700"/>
-		<Text color="muted.200" fontWeight={500} px={3}>
-		  Update your profile details here.
+		<Text color="muted.400" fontWeight={500} px={3}>
+		  Update your profile details here. You can only change your first name and last name at the moment.
 		</Text>
 		<PrimaryInput
 		  onChange={(e) => setData({...data, first_name: e})}
 		  placeholder="First name"
-		  extraProps={{value: data.first_name}}
+		  value={data.first_name}
 		  maxLength={30}
 		/>
 		<PrimaryInput
 		  onChange={(e) => setData({...data, last_name: e})}
 		  placeholder="Last name"
-		  extraProps={{value: data.last_name}}
+		  value={data.last_name}
 		  maxLength={30}
+		/>
+		<PrimaryInput
+		  onChange={(e) => setData({...data, email: e})}
+		  value={state?.session?.user?.email}
+		  disabled
+		  placeholder={"E-mail address"}
 		/>
 		{loading ? <Spinner color="primary.500"/> :
 		  <Button onPress={saveDetails} disabled={loading}>

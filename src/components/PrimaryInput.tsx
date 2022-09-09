@@ -1,15 +1,15 @@
 import {Input} from "native-base";
 import {FC} from "react";
 import {Platform} from "react-native";
-import {PrimaryButtonProps} from "../types/Props";
+import {PrimaryInputProps} from "../types/Props";
 
-const PrimaryInput: FC<PrimaryButtonProps> = ({
+const PrimaryInput: FC<PrimaryInputProps> = ({
   type = "text",
   maxLength = 100,
   placeholder,
   disabled = false,
   onChange,
-  extraProps,
+  ...extraProps
 }) => {
   return (
 	<Input

@@ -43,7 +43,7 @@ const Account: FC<BasePageProps> = ({navigation}) => {
 	height: 130,
 	borderWidth: 5,
 	borderColor: "#DDDDDD",
-	borderRadius: "100%",
+	borderRadius: 100,
   }
 
 

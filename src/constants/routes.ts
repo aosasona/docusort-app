@@ -8,8 +8,10 @@ const routes = {
   ACCOUNT: "app/account",
   SEARCH: "app/search",
   ID_PAGE: "app/folders/id",
+  FILES_PAGE: "app/files",
   FOLDER_PAGE: "app/folders/folder",
   SET_PIN: "app/pin/set",
+  ENTER_PIN: "app/pin/enter",
 }
 
 export default routes

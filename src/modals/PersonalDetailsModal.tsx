@@ -57,7 +57,7 @@ const PersonalDetailsModal = ({visible, onClose}) => {
 		</Heading>
 		<Divider orientation="horizontal" bg="muted.700"/>
 		<Text color="muted.200" fontWeight={500} px={3}>
-		  Update your profile information here.
+		  Update your profile details here.
 		</Text>
 		<PrimaryInput
 		  onChange={(e) => setData({...data, first_name: e})}

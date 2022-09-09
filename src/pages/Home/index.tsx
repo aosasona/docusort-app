@@ -4,11 +4,12 @@ import {Button, Fab, Heading, HStack, Icon, ScrollView, Text, VStack} from "nati
 import {FC, useContext, useEffect, useState} from "react";
 import AppLayout from "../../components/AppLayout";
 import Layout from "../../components/Layout";
+import routes from "../../constants/routes";
 import {GlobalContext} from "../../contexts/GlobalContext";
 import UploadModal from "../../modals/UploadModal";
 import {BasePageProps} from "../../types/Props";
 
-const Index: FC<BasePageProps> = () => {
+const Index: FC<BasePageProps> = ({navigation}) => {
   const {state, dispatch} = useContext(GlobalContext);
   const {profile} = state;
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
@@ -30,7 +31,7 @@ const Index: FC<BasePageProps> = () => {
 	<AppLayout>
 	  <ScrollView>
 		<Heading
-		  color={"primary.500"}
+		  color={"muted.200"}
 		  fontSize={28}
 		  fontWeight={600}
 		  px={6}
@@ -39,7 +40,7 @@ const Index: FC<BasePageProps> = () => {
 		>
 		  Hello, {profile.first_name}
 		</Heading>
-		{!pinExists && <PinNotSetup/>}
+		{!pinExists && <PinNotSetup navigation={navigation}/>}
 	  </ScrollView>
 
 	  <Fab
@@ -58,9 +59,18 @@ const Index: FC<BasePageProps> = () => {
   );
 }
 
-const PinNotSetup = () => (
-  <Button w="90%" rounded={15} backgroundColor="red.500" justifyContent="space-between" px={4} py={4} mx="auto"
-		  _pressed={{opacity: 0.7}}>
+const PinNotSetup = ({navigation}) => (
+  <Button
+	w="90%"
+	rounded={15}
+	backgroundColor="red.500"
+	justifyContent="space-between"
+	px={4}
+	py={4}
+	mx="auto"
+	_pressed={{opacity: 0.7}}
+	onPress={() => navigation.navigate(routes.SET_PIN)}
+  >
 	<HStack space={3} alignItems="center">
 	  <Icon color="white" as={Ionicons} name="keypad" size={6}/>
 	  <VStack space={0.5}>

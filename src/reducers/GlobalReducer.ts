@@ -22,6 +22,11 @@ export const GlobalReducer = (state, action) => {
 		...state,
 		profileKey: state.profileKey + 1,
 	  }
+	case reducerActions.CONFIRM_PIN_SET:
+	  return {
+		...state,
+		isPinSet: action.payload,
+	  }
 	default:
 	  return state;
   }

@@ -26,15 +26,18 @@ import {extendTheme, NativeBaseProvider} from "native-base";
 import {useEffect, useState} from "react";
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import 'react-native-url-polyfill/auto'
+import supabase from "./utils/Supabase";
 import AppTabs from "./src/components/AppTabs";
 import routes from "./src/constants/routes";
 import {newColorTheme, newFontConfig, newFonts} from "./src/constants/theme";
 import {GlobalProvider} from "./src/contexts/GlobalContext";
 
+
 import {SignIn, SignUp} from "./src/pages/Auth";
 import Initial from "./src/pages/Initial";
+import SetPin from "./src/pages/Pin/SetPin";
 import {AuthStatus} from "./src/types/Auth";
-import supabase from "./utils/Supabase";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -123,24 +126,33 @@ export default function App() {
 			>
 			  {
 				authStatus === AuthStatus.SIGNED_IN
-				  ? <Stack.Screen
-					name={routes.APP}
-					component={AppTabs}
-				  />
-				  : (<>
+				  ?
+				  <>
 					<Stack.Screen
-					  name={routes.SIGN_IN}
-					  component={SignIn}
+					  name={routes.APP}
+					  component={AppTabs}
 					/>
 					<Stack.Screen
-					  name={routes.SIGN_UP}
-					  component={SignUp}
+					  name={routes.SET_PIN}
+					  component={SetPin}
 					/>
-					<Stack.Screen
-					  name={routes.INITIAL}
-					  component={Initial}
-					/>
-				  </>)
+				  </>
+				  : (
+					<>
+					  <Stack.Screen
+						name={routes.SIGN_IN}
+						component={SignIn}
+					  />
+					  <Stack.Screen
+						name={routes.SIGN_UP}
+						component={SignUp}
+					  />
+					  <Stack.Screen
+						name={routes.INITIAL}
+						component={Initial}
+					  />
+					</>
+				  )
 			  }
 
 			</Stack.Navigator>

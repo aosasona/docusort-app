@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useContext, useEffect, useState} from "react";
 import {Platform} from "react-native";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
@@ -24,6 +25,11 @@ const AppTabs = ({navigation}) => {
 
   useEffect(() => {
 	getSession().then(data => dispatch({type: reducerActions.SET_SESSION, payload: data}));
+	(async () => {
+	  const isPinSet = await AsyncStorage.getItem("pin") !== null
+	  dispatch({type: reducerActions.CONFIRM_PIN_SET, payload: isPinSet})
+	})();
+	return
   }, [])
 
   useEffect(() => {
@@ -63,7 +69,7 @@ const AppTabs = ({navigation}) => {
 	<Tab.Navigator initialRouteName={routes.HOME} backBehavior="history" {...{screenOptions}}>
 	  <Tab.Screen
 		name={routes.HOME}
-		children={() => <Home/>}
+		component={Home}
 		options={{
 		  title: "Home",
 		  tabBarIcon: ({focused}) => <Icon
@@ -77,7 +83,7 @@ const AppTabs = ({navigation}) => {
 
 	  <Tab.Screen
 		name={routes.SEARCH}
-		children={() => <Search/>}
+		component={Search}
 		options={{
 		  title: "Search",
 		  tabBarIcon: ({focused}) => <Icon
@@ -92,7 +98,7 @@ const AppTabs = ({navigation}) => {
 
 	  <Tab.Screen
 		name={routes.ACCOUNT}
-		children={() => <Account/>}
+		component={Account}
 		options={{
 		  title: "Account",
 		  tabBarIcon: ({focused}) => <Icon

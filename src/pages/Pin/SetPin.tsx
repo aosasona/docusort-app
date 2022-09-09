@@ -1,5 +1,5 @@
 import {Heading, Box, ScrollView, Text, Flex, useToast} from "native-base";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Dimensions} from "react-native";
 import AppLayout from "../../components/AppLayout";
 import Back from "../../components/Back";
@@ -15,6 +15,14 @@ const SetPin = ({navigation}) => {
   const [pin, setPin] = useState("");
   const [confirmPin, setConfirmPin] = useState("");
   const [step, setStep] = useState(1);
+
+  useEffect(() => {
+	if (confirmPin?.length === 0) {
+	  const pinLastThree = pin.slice(-3);
+	  setPin(pinLastThree)
+	  setStep(1);
+	}
+  }, [confirmPin]);
 
   const handleComplete = ({step}) => {
 	if (step === 1) {
@@ -35,6 +43,10 @@ const SetPin = ({navigation}) => {
 	  setStep(1);
 	  return;
 	}
+	toast.show({
+	  description: "Yup, works!",
+	  ...ToastStyles.SUCCESS,
+	})
 	// navigation.navigate("Home");
   }
 

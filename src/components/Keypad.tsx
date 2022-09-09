@@ -29,7 +29,7 @@ const Keypad: FC<KeypadProps> = ({max, value, setValue, onCompleted}) => {
   }
 
   return (
-	<VStack space={10}>
+	<VStack space={6}>
 	  <Flex direction="row" justifyContent="space-around" alignItems="center">
 		<KeypadInput value={1} onPress={handlePress} isFilled={isFilled}/>
 		<KeypadInput value={2} onPress={handlePress} isFilled={isFilled}/>
@@ -62,13 +62,13 @@ const KeypadInput: FC<KeypadInputProps> = ({value, onPress, isFilled}) => {
 
   return (
 	<Pressable
-	  p={2}
+	  p={4}
 	  onPress={handlePress}
 	  _pressed={{
 		opacity: 0.4,
 	  }}
 	>
-	  <Text color="muted.100" fontWeight={800} fontSize={28}>
+	  <Text color="muted.100" fontWeight={800} fontSize={26}>
 		{value}
 	  </Text>
 	</Pressable>

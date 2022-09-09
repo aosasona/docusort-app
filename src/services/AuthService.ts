@@ -74,10 +74,9 @@ export const SignUp = async (data: SignUpData, toast) => {
 }
 
 export const SignOut = async (toast) => {
+  await AsyncStorage.clear()
 
   const {error} = await supabase.auth.signOut()
-
-  // await AsyncStorage.clear()
 
   if (error) {
 	toast.show({

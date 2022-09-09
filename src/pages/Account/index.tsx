@@ -22,6 +22,7 @@ import {reducerActions} from "../../constants/actions";
 import routes from "../../constants/routes";
 import {GlobalContext} from "../../contexts/GlobalContext";
 import ImageInfoModal from "../../modals/ImageInfoModal";
+import PersonalDetailsModal from "../../modals/PersonalDetailsModal";
 import {SignOut} from "../../services/AuthService";
 import {getUserProfile} from "../../services/ProfileService";
 import {BasePageProps} from "../../types/Props";
@@ -32,10 +33,13 @@ const Account: FC<BasePageProps> = ({navigation}) => {
   const {state, dispatch} = useContext(GlobalContext);
   const {profile, session} = state;
   const [imageInfoVisibility, setImageInfoVisibility] = useState(false);
+  const [personalDetailVisibility, setPersonalDetailVisibility] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = () => {
+	setRefreshing(true);
 	dispatch({type: reducerActions.RELOAD_PROFILE})
+	setRefreshing(false);
   }
 
   const signOut = async () => {
@@ -101,9 +105,9 @@ const Account: FC<BasePageProps> = ({navigation}) => {
 			<Heading color="muted.600" fontSize={16} fontWeight={600} px={2} py={1}>SETTINGS</Heading>
 
 			<VStack space={1} mt={2}>
-			  <PageButton>
+			  <PageButton onPress={() => setPersonalDetailVisibility(true)}>
 				<Icon as={AntDesign} name="edit" size={5} color="muted.400"/>
-				<Text color="muted.400" fontWeight={500} fontSize={16}>Personal information</Text>
+				<Text color="muted.400" fontWeight={500} fontSize={16}>Personal details</Text>
 			  </PageButton>
 
 			  <PageButton>
@@ -145,6 +149,7 @@ const Account: FC<BasePageProps> = ({navigation}) => {
 		  </Text>
 		</Box>
 		<ImageInfoModal visible={imageInfoVisibility} onClose={() => setImageInfoVisibility(false)}/>
+		<PersonalDetailsModal visible={personalDetailVisibility} onClose={() => setPersonalDetailVisibility(false)}/>
 	  </ScrollView>
 	</AppLayout>
   );

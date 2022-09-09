@@ -24,4 +24,5 @@ export interface PrimaryButtonProps {
 export interface BasePageProps {
   session?: Session
   profile?: any
+  navigation?: any
 }

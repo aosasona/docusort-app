@@ -2,6 +2,7 @@ import {AntDesign} from "@expo/vector-icons";
 import {Box, Flex, Icon, ScrollView, Text, VStack} from "native-base";
 import {FC, useState} from "react";
 import {RefreshControl, useWindowDimensions} from "react-native";
+import AppLayout from "../../components/AppLayout";
 import Layout from "../../components/Layout";
 import PrimaryInput from "../../components/PrimaryInput";
 import {BasePageProps} from "../../types/Props";
@@ -13,16 +14,16 @@ const Search: FC<BasePageProps> = ({session}) => {
   const [results, setResults] = useState([]);
 
   return (
-	<ScrollView
-	  pt={8}
-	  backgroundColor="#000000"
-	  showsVerticalScrollIndicator={false}
-	>
-	  <Layout style={{paddingHorizontal: 15}}>
+	<AppLayout style={{paddingHorizontal: 15}}>
+	  <ScrollView
+		pt={8}
+		backgroundColor="#000000"
+		showsVerticalScrollIndicator={false}
+	  >
 		<PrimaryInput onChange={setQuery} placeholder="Search..."/>
 		{!query && <NoQuery/>}
-	  </Layout>
-	</ScrollView>
+	  </ScrollView>
+	</AppLayout>
   )
 }
 

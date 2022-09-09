@@ -29,6 +29,7 @@ import 'react-native-url-polyfill/auto'
 import AppTabs from "./src/components/AppTabs";
 import routes from "./src/constants/routes";
 import {newColorTheme, newFontConfig, newFonts} from "./src/constants/theme";
+import {GlobalProvider} from "./src/contexts/GlobalContext";
 
 import {SignIn, SignUp} from "./src/pages/Auth";
 import Initial from "./src/pages/Initial";
@@ -112,38 +113,40 @@ export default function App() {
   );
 
   return (
-	<NativeBaseProvider theme={theme}>
-	  <SafeAreaProvider>
-		<NavigationContainer>
-		  <Stack.Navigator
-			initialRouteName={authStatus === AuthStatus.SIGNED_IN ? routes.APP : routes.INITIAL}
-			screenOptions={{headerShown: false}}
-		  >
-			{
-			  authStatus === AuthStatus.SIGNED_IN
-				? <Stack.Screen
-				  name={routes.APP}
-				  component={AppTabs}
-				/>
-				: (<>
-				  <Stack.Screen
-					name={routes.SIGN_IN}
-					component={SignIn}
+	<GlobalProvider>
+	  <NativeBaseProvider theme={theme}>
+		<SafeAreaProvider>
+		  <NavigationContainer>
+			<Stack.Navigator
+			  initialRouteName={authStatus === AuthStatus.SIGNED_IN ? routes.APP : routes.INITIAL}
+			  screenOptions={{headerShown: false}}
+			>
+			  {
+				authStatus === AuthStatus.SIGNED_IN
+				  ? <Stack.Screen
+					name={routes.APP}
+					component={AppTabs}
 				  />
-				  <Stack.Screen
-					name={routes.SIGN_UP}
-					component={SignUp}
-				  />
-				  <Stack.Screen
-					name={routes.INITIAL}
-					component={Initial}
-				  />
-				</>)
-			}
+				  : (<>
+					<Stack.Screen
+					  name={routes.SIGN_IN}
+					  component={SignIn}
+					/>
+					<Stack.Screen
+					  name={routes.SIGN_UP}
+					  component={SignUp}
+					/>
+					<Stack.Screen
+					  name={routes.INITIAL}
+					  component={Initial}
+					/>
+				  </>)
+			  }
 
-		  </Stack.Navigator>
-		</NavigationContainer>
-	  </SafeAreaProvider>
-	</NativeBaseProvider>
+			</Stack.Navigator>
+		  </NavigationContainer>
+		</SafeAreaProvider>
+	  </NativeBaseProvider>
+	</GlobalProvider>
   );
 }

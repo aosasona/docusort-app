@@ -1,11 +1,14 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {Platform} from "react-native";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import {AntDesign, Ionicons} from '@expo/vector-icons';
+import {AntDesign} from '@expo/vector-icons';
 import {Icon} from "native-base";
 import supabase from "../../utils/Supabase";
 import {colors} from "../constants";
+import {reducerActions} from "../constants/actions";
 import routes from "../constants/routes";
+import {generalOptions, screenOptions} from "../constants/tabs";
+import {GlobalContext} from "../contexts/GlobalContext";
 import Account from "../pages/Account";
 import Home from "../pages/Home";
 import Search from "../pages/Search";
@@ -15,25 +18,25 @@ const Tab = createBottomTabNavigator();
 
 const AppTabs = ({navigation}) => {
 
-  const [loading, setLoading] = useState(true);
-  const [session, setSession] = useState(null);
-  const [profile, setProfile] = useState(null);
+
+  const {state, dispatch} = useContext(GlobalContext);
+  const {appLoading: loading, session, profile} = state;
 
   useEffect(() => {
-	getSession().then(data => setSession(data));
+	getSession().then(data => dispatch({type: reducerActions.SET_SESSION, payload: data}));
   }, [])
 
   useEffect(() => {
 	if (session !== null && "user" in session) {
 	  getUserProfile(session.user.id)
 		.then(data => {
-		  setProfile(data)
+		  dispatch({type: reducerActions.SET_PROFILE, payload: data});
 		})
 		.catch(err => navigation.navigate(routes.SIGN_IN))
-		.finally(() => setLoading(false))
+		.finally(() => dispatch({type: reducerActions.STOP_APP_LOADING}))
 	}
 	return
-  }, [session])
+  }, [session, state.profileKey])
 
   async function getSession() {
 	try {
@@ -48,33 +51,6 @@ const AppTabs = ({navigation}) => {
 	}
   }
 
-  const isAndroid = Platform.OS === "android";
-
-  const generalOptions = {
-	headerShown: false,
-	headerStyle: {
-	  height: isAndroid ? 80 : 100,
-	  backgroundColor: colors.BLACK,
-	  shadowColor: "transparent",
-	},
-	tabBarLabelStyle: {
-	  display: "none",
-	},
-	tabBarActiveTintColor: colors.PRIMARY,
-	tabBarInactiveTintColor: colors.LIGHT,
-  } as any
-
-  const screenOptions = {
-	tabBarStyle: {
-	  backgroundColor: colors.BLACK,
-	  height: isAndroid ? 70 : 100,
-	  borderTopWidth: 0,
-	},
-	tabBarItemStyle: {
-	  marginHorizontal: 10,
-	},
-  };
-
   const getIconColor = (focused: boolean) => {
 	return focused ? "primary.500" : "muted.700"
   }
@@ -87,7 +63,7 @@ const AppTabs = ({navigation}) => {
 	<Tab.Navigator initialRouteName={routes.HOME} backBehavior="history" {...{screenOptions}}>
 	  <Tab.Screen
 		name={routes.HOME}
-		children={() => <Home session={session} profile={profile}/>}
+		children={() => <Home/>}
 		options={{
 		  title: "Home",
 		  tabBarIcon: ({focused}) => <Icon
@@ -101,7 +77,7 @@ const AppTabs = ({navigation}) => {
 
 	  <Tab.Screen
 		name={routes.SEARCH}
-		children={() => <Search session={session}/>}
+		children={() => <Search/>}
 		options={{
 		  title: "Search",
 		  tabBarIcon: ({focused}) => <Icon
@@ -116,7 +92,7 @@ const AppTabs = ({navigation}) => {
 
 	  <Tab.Screen
 		name={routes.ACCOUNT}
-		children={() => <Account session={session} profile={profile}/>}
+		children={() => <Account/>}
 		options={{
 		  title: "Account",
 		  tabBarIcon: ({focused}) => <Icon

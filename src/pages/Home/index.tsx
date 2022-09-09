@@ -1,13 +1,16 @@
 import {AntDesign, Ionicons} from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {Button, Fab, Heading, HStack, Icon, ScrollView, Text, VStack} from "native-base";
-import {FC, useEffect, useState} from "react";
+import {FC, useContext, useEffect, useState} from "react";
+import AppLayout from "../../components/AppLayout";
 import Layout from "../../components/Layout";
+import {GlobalContext} from "../../contexts/GlobalContext";
 import UploadModal from "../../modals/UploadModal";
 import {BasePageProps} from "../../types/Props";
 
-const Index: FC<BasePageProps> = ({session, profile}) => {
-
+const Index: FC<BasePageProps> = () => {
+  const {state, dispatch} = useContext(GlobalContext);
+  const {profile} = state;
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [pinExists, setPinExists] = useState(true);
 
@@ -24,7 +27,7 @@ const Index: FC<BasePageProps> = ({session, profile}) => {
 
 
   return (
-	<Layout>
+	<AppLayout>
 	  <ScrollView>
 		<Heading
 		  color={"primary.500"}
@@ -51,7 +54,7 @@ const Index: FC<BasePageProps> = ({session, profile}) => {
 		onPress={() => setIsUploadModalOpen(true)}
 	  />
 	  <UploadModal visible={isUploadModalOpen} toggleVisibility={() => setIsUploadModalOpen(false)}/>
-	</Layout>
+	</AppLayout>
   );
 }
 

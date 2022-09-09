@@ -1,4 +1,4 @@
-import {AntDesign} from "@expo/vector-icons";
+import {AntDesign, Ionicons} from "@expo/vector-icons";
 import Constants from "expo-constants"
 import {RefreshControl, StyleSheet} from 'react-native';
 import {
@@ -15,22 +15,27 @@ import {
   useToast,
   VStack,
 } from "native-base";
-import {FC, useState} from "react";
+import {FC, useContext, useState} from "react";
+import AppLayout from "../../components/AppLayout";
 import Layout from "../../components/Layout";
+import {reducerActions} from "../../constants/actions";
+import routes from "../../constants/routes";
+import {GlobalContext} from "../../contexts/GlobalContext";
 import ImageInfoModal from "../../modals/ImageInfoModal";
 import {SignOut} from "../../services/AuthService";
+import {getUserProfile} from "../../services/ProfileService";
 import {BasePageProps} from "../../types/Props";
 import {Gravatar} from 'react-native-gravatar';
 
-const Account: FC<BasePageProps> = ({session, profile}) => {
+const Account: FC<BasePageProps> = ({navigation}) => {
   const toast = useToast();
+  const {state, dispatch} = useContext(GlobalContext);
+  const {profile, session} = state;
   const [imageInfoVisibility, setImageInfoVisibility] = useState(false);
-  const [key, setKey] = useState(0);
   const [refreshing, setRefreshing] = useState(false);
+
   const onRefresh = () => {
-	setRefreshing(true);
-	setKey(key + 1);
-	setRefreshing(false);
+	dispatch({type: reducerActions.RELOAD_PROFILE})
   }
 
   const signOut = async () => {
@@ -50,21 +55,22 @@ const Account: FC<BasePageProps> = ({session, profile}) => {
 	height: 130,
 	borderWidth: 5,
 	borderColor: "#DDDDDD",
-	borderRadius: 100,
+	borderRadius: "100%",
   }
 
+
   return (
-	<ScrollView
-	  pt={12}
-	  backgroundColor="#000000"
-	  showsVerticalScrollIndicator={false}
-	  refreshControl={<RefreshControl
-		refreshing={refreshing}
-		onRefresh={onRefresh}
-	  />}
-	>
-	  <Layout key={key}>
-		<VStack space={12}>
+	<AppLayout>
+	  <ScrollView
+		pt={12}
+		backgroundColor="#000000"
+		showsVerticalScrollIndicator={false}
+		refreshControl={<RefreshControl
+		  refreshing={refreshing}
+		  onRefresh={onRefresh}
+		/>}
+	  >
+		<VStack space={10}>
 		  <VStack space={5} alignItems={"center"}>
 			<Pressable onPress={() => setImageInfoVisibility(true)}>
 			  <Gravatar
@@ -73,13 +79,12 @@ const Account: FC<BasePageProps> = ({session, profile}) => {
 				  parameters: {"size": "200", "d": "retro"},
 				  secure: true,
 				}}
-
 				style={{
 				  ...gravatarStyle,
 				}}
 			  />
 			</Pressable>
-			<VStack space={2} alignItems="center">
+			<VStack space={3} alignItems="center">
 			  <Text fontFamily="body" color="muted.200" fontSize={28} fontWeight={600}>
 				{profile.first_name} {profile.last_name}
 			  </Text>
@@ -90,57 +95,71 @@ const Account: FC<BasePageProps> = ({session, profile}) => {
 			  </Box>
 			</VStack>
 		  </VStack>
+		</VStack>
+		<Box bg="muted.900" rounded={40} px={5} pt={8} pb={5} mt={16}>
+		  <Box>
+			<Heading color="muted.600" fontSize={16} fontWeight={600} px={2} py={1}>SETTINGS</Heading>
 
-		  <Box mx={4}>
-			<Heading color="muted.700" fontSize={18} px={2}>Settings</Heading>
-			<Box px={1}>
-			  <Divider bg="muted.800" mt={2}/>
-			</Box>
-
-			<VStack space={4} mt={4}>
+			<VStack space={1} mt={2}>
 			  <PageButton>
-				<Icon as={AntDesign} name="edit" size={4} color="muted.500"/>
-				<Text fontFamily="body" color="muted.500" fontWeight={500} fontSize={15}>Edit profile</Text>
+				<Icon as={AntDesign} name="edit" size={5} color="muted.400"/>
+				<Text color="muted.400" fontWeight={500} fontSize={16}>Personal information</Text>
 			  </PageButton>
 
 			  <PageButton>
-				<Icon as={AntDesign} name="key" size={4} color="muted.500"/>
-				<Text fontFamily="body" color="muted.500" fontWeight={500} fontSize={15}>Change password</Text>
+				<Icon as={AntDesign} name="key" size={5} color="muted.400"/>
+				<Text color="muted.400" fontWeight={500} fontSize={15}>Change password</Text>
+			  </PageButton>
+
+			  <PageButton>
+				<Icon as={Ionicons} name="keypad" size={5} color="muted.400"/>
+				<Text color="muted.400" fontWeight={500} fontSize={15}>Change pin</Text>
+			  </PageButton>
+
+			  <PageButton>
+				<Icon as={Ionicons} name="ios-finger-print" size={5} color="muted.400"/>
+				<Text color="muted.400" fontWeight={500} fontSize={15}>Biometrics settings</Text>
+			  </PageButton>
+
+			  <PageButton>
+				<Icon as={Ionicons} name="help" size={5} color="muted.400"/>
+				<Text color="muted.400" fontWeight={500} fontSize={15}>Help & FAQs</Text>
 			  </PageButton>
 
 			</VStack>
 		  </Box>
-		</VStack>
 
 
-		<VStack space={4} mx={4} mt={20}>
-		  <Button backgroundColor="red.500" rounded={15} py={6} _pressed={{opacity: 0.75}}
-				  onPress={signOut}>
-			<Text fontFamily="body" color="red.50" fontWeight={500} fontSize={15}>Sign Out</Text>
-		  </Button>
+		  <VStack space={4} mx={2} mt={6}>
+			<Button backgroundColor="red.500" rounded={15} py={6} _pressed={{opacity: 0.75}}
+					onPress={signOut}>
+			  <Text fontFamily="body" color="red.50" fontWeight={500} fontSize={15}>Sign Out</Text>
+			</Button>
 
-		  <Button backgroundColor="transparent" rounded={15} py={6} _pressed={{opacity: 0.75}}>
-			<Text fontFamily="body" color="red.500" fontWeight={500} fontSize={15}>Delete Account</Text>
-		  </Button>
-		</VStack>
-		<Text color="muted.600" fontSize={13} textAlign="center" py={10}>
-		  Version {Constants.manifest.version}
-		</Text>
-
-	  </Layout>
-	  <ImageInfoModal visible={imageInfoVisibility} onClose={() => setImageInfoVisibility(false)}/>
-	</ScrollView>
+			<Button backgroundColor="transparent" rounded={15} py={6} _pressed={{opacity: 0.75}}>
+			  <Text fontFamily="body" color="red.500" fontWeight={500} fontSize={15}>Delete Account</Text>
+			</Button>
+		  </VStack>
+		  <Text color="muted.600" fontSize={13} textAlign="center" pt={10} pb={20}>
+			Version {Constants.manifest.version}
+		  </Text>
+		</Box>
+		<ImageInfoModal visible={imageInfoVisibility} onClose={() => setImageInfoVisibility(false)}/>
+	  </ScrollView>
+	</AppLayout>
   );
 }
 
 const PageButton = ({children, ...props}) => (
   <Button
-	backgroundColor="muted.900"
-	justifyContent="flex-start" rounded={15} py={6}
-	_pressed={{opacity: 0.75}}
+	backgroundColor="transparent"
+	justifyContent="flex-start"
+	rounded={15}
+	py={6}
+	_pressed={{opacity: 0.7}}
 	{...props}
   >
-	<HStack space={4} alignItems="center" justifyContent="space-between" px={4}>
+	<HStack space={4} alignItems="center" justifyContent="space-between">
 	  {children}
 	</HStack>
   </Button>

@@ -4,13 +4,14 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {LayoutProps} from "../types/Props";
 
 
-const Layout: FC<LayoutProps> = ({children, style = {}, showTabs = false}) => {
+const AppLayout: FC<LayoutProps> = ({children, style = {}, showTabs = false}) => {
   return (
-	<SafeAreaView style={{backgroundColor: "#000000", flex: 1, color: "#ffffff", ...style}}>
+	<SafeAreaView edges={['right', 'left', 'top']}
+				  style={{backgroundColor: "#000000", flex: 1, color: "#ffffff", ...style}}>
 	  <StatusBar showHideTransition="slide" barStyle="light-content"/>
 	  {children}
 	</SafeAreaView>
   )
 }
 
-export default Layout;
+export default AppLayout;

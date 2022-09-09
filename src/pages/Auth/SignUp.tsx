@@ -62,7 +62,7 @@ const SignUp = ({navigation}) => {
 	setLoading(true);
 	try {
 	  await SignUpService(data, toast);
-	  navigation.navigate(routes.SIGN_IN);
+	  // navigation.navigate(routes.SIGN_IN);
 	}
 	catch (e: any) {
 	  const msg = handleError(e);

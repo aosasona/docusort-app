@@ -1,9 +1,8 @@
 import {AntDesign} from "@expo/vector-icons";
-import {Box, Flex, Icon, ScrollView, Text, VStack} from "native-base";
+import {Flex, Icon, ScrollView, Text, VStack} from "native-base";
 import {FC, useState} from "react";
-import {RefreshControl, useWindowDimensions} from "react-native";
+import {useWindowDimensions} from "react-native";
 import AppLayout from "../../components/AppLayout";
-import Layout from "../../components/Layout";
 import PrimaryInput from "../../components/PrimaryInput";
 import {BasePageProps} from "../../types/Props";
 

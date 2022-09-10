@@ -1,6 +1,6 @@
 import {Box, ScrollView} from "native-base";
 import React from "react";
-import {View, StyleSheet, Dimensions} from "react-native";
+import {Dimensions} from "react-native";
 import {default as RNModal} from "react-native-modal";
 
 type ModalType = {

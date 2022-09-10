@@ -1,4 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {createContext, useReducer} from "react";
 import {GlobalReducer} from "../reducers/GlobalReducer";
 import {ContextState} from "../types/Context";

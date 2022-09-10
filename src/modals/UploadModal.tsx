@@ -1,10 +1,8 @@
+import {Divider, Heading, Text, VStack} from "native-base"
 import {useState} from "react";
-import {Platform} from "react-native";
-import {KeyboardAvoidingView, Heading, VStack, Text, Select, CheckIcon, Box, Divider} from "native-base"
-import Modal from "../components/Modal";
 import Button from "../components/Button"
+import Modal from "../components/Modal";
 import PrimaryInput from "../components/PrimaryInput";
-import routes from "../constants/routes";
 
 const UploadModal = ({visible, toggleVisibility}) => {
 

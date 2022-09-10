@@ -1,9 +1,9 @@
+import {AntDesign} from '@expo/vector-icons';
+import LottieView from 'lottie-react-native';
+import {Box, Flex, IconButton, Text, useDisclose, VStack} from "native-base";
 import {useState} from "react";
 import {ImageBackground, useWindowDimensions} from "react-native";
 import AuthModal from "../../modals/AuthModal";
-import LottieView from 'lottie-react-native';
-import {Box, Text, VStack, IconButton, Flex, Actionsheet, useDisclose} from "native-base";
-import {AntDesign} from '@expo/vector-icons';
 
 const fileAnimation = require("../../../assets/animations/file.json")
 const bgImage = require("../../../assets/initial-bg.png")

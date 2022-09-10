@@ -1,8 +1,8 @@
+import {Text} from "native-base"
 import {FC} from "react";
 import {StyleSheet, TouchableOpacity} from "react-native";
-import {Text} from "native-base"
-import {ButtonProps} from "../types/Props";
 import {colors} from "../constants";
+import {ButtonProps} from "../types/Props";
 
 const Button: FC<ButtonProps> = ({onPress, children, disabled = false}) => {
   const styles = StyleSheet.create({

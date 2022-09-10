@@ -1,4 +1,4 @@
-import {Heading, Box, ScrollView, Text, Flex, useToast} from "native-base";
+import {Box, Heading, Text, useToast} from "native-base";
 import {useEffect, useState} from "react";
 import {Dimensions} from "react-native";
 import AppLayout from "../../components/AppLayout";
@@ -63,7 +63,7 @@ const SetPin = ({navigation}) => {
 const StepOne = ({pin, setPin, onCompleted}) => {
 
   return (
-	<Box height={pageHeight} justifyContent="space-between">
+	<Box justifyContent="space-between" style={{flex: 1}}>
 	  <Box px={6} py={2}>
 		<Back my={6}/>
 		<Heading color="light.200" fontFamily="heading" fontSize="4xl" fontWeight="500">
@@ -74,7 +74,9 @@ const StepOne = ({pin, setPin, onCompleted}) => {
 		</Text>
 	  </Box>
 	  <PinInput length={4} value={pin}/>
-	  <Keypad max={4} value={pin} setValue={setPin} onCompleted={() => onCompleted({step: 1})}/>
+	  <Box mb={12}>
+		<Keypad max={4} value={pin} setValue={setPin} onCompleted={() => onCompleted({step: 1})}/>
+	  </Box>
 	</Box>
   )
 }

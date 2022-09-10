@@ -1,5 +1,5 @@
-import {Entypo, FontAwesome, FontAwesome5} from "@expo/vector-icons";
-import {Box, HStack, Icon, Text} from "native-base";
+import {Entypo, FontAwesome5} from "@expo/vector-icons";
+import {Box, HStack, Icon} from "native-base";
 import {FC} from "react";
 import {Dimensions} from "react-native";
 import {PinInputProps} from "../types/Props";

@@ -1,7 +1,7 @@
 import {Ionicons} from "@expo/vector-icons";
+import * as Haptics from 'expo-haptics';
 import {Box, Flex, Icon, Pressable, Text, VStack} from "native-base";
 import {FC, Fragment, useEffect} from "react";
-import * as Haptics from 'expo-haptics';
 import {Dimensions} from "react-native";
 import {KeypadInputProps, KeypadProps} from "../types/Props";
 
@@ -68,6 +68,7 @@ const KeypadInput: FC<KeypadInputProps> = ({value, onPress, isFilled}) => {
 	  onPress={handlePress}
 	  alignItems={"center"}
 	  justifyContent={"center"}
+	  disabled={isFilled}
 	  _pressed={{
 		opacity: 0.4,
 		bg: "muted.800",

@@ -3,7 +3,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {Button, Fab, Heading, HStack, Icon, ScrollView, Text, VStack} from "native-base";
 import {FC, useContext, useEffect, useState} from "react";
 import AppLayout from "../../components/AppLayout";
-import Layout from "../../components/Layout";
 import routes from "../../constants/routes";
 import {GlobalContext} from "../../contexts/GlobalContext";
 import UploadModal from "../../modals/UploadModal";

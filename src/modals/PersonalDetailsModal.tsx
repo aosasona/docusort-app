@@ -1,4 +1,4 @@
-import {Box, Divider, Heading, Spinner, Text, useToast, VStack} from "native-base";
+import {Divider, Heading, Spinner, Text, useToast, VStack} from "native-base";
 import {useContext, useEffect, useState} from "react";
 import {handleError} from "../../utils/ErrorHandler";
 import Button from "../components/Button";

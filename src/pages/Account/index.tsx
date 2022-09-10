@@ -1,6 +1,6 @@
 import {AntDesign, Ionicons, MaterialCommunityIcons} from "@expo/vector-icons";
 import Constants from "expo-constants"
-import {Box, Button, Heading, HStack, Icon, Pressable, ScrollView, Text, useToast, VStack} from "native-base";
+import {Box, Button, HStack, Icon, ScrollView, Text, useToast, VStack} from "native-base";
 import {FC, useContext, useState} from "react";
 import {Dimensions, RefreshControl} from 'react-native';
 import AccountCard from "../../components/AccountCard";
@@ -49,7 +49,7 @@ const Account: FC<BasePageProps> = ({navigation}) => {
 	  >
 
 		<AccountCard onPress={() => setImageInfoVisibility(true)} session={session} profile={profile}/>
-		
+
 		<Box px={5} py={3} mt={6}>
 		  <Box>
 			<VStack space={1}>

@@ -1,10 +1,9 @@
-import {Urbanist_500Medium} from "@expo-google-fonts/urbanist";
+import {Box, Heading, ScrollView, Spinner, Stack, Text, useToast} from "native-base";
 import {useState} from "react";
-import {Text, Stack, ScrollView, useToast, Heading, Box, Spinner} from "native-base";
 import {TouchableOpacity, View} from "react-native";
 import {handleError} from "../../../utils/ErrorHandler";
-import Layout from "../../components/Layout"
 import Button from "../../components/Button";
+import Layout from "../../components/Layout"
 import PrimaryInput from "../../components/PrimaryInput";
 import {ToastStyles} from "../../constants";
 import routes from "../../constants/routes";

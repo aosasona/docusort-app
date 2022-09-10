@@ -1,11 +1,9 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import {useContext, useEffect, useState} from "react";
-import {Platform} from "react-native";
-import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {AntDesign, Ionicons} from '@expo/vector-icons';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {Icon} from "native-base";
+import {useContext, useEffect} from "react";
 import supabase from "../../utils/Supabase";
-import {colors} from "../constants";
 import {reducerActions} from "../constants/actions";
 import routes from "../constants/routes";
 import {generalOptions, screenOptions} from "../constants/tabs";

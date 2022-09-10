@@ -2,10 +2,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {Trim} from "../../utils/Formatter";
 import supabase from "../../utils/Supabase";
 import {validate} from "../../utils/Validate";
+import {ToastStyles} from "../constants";
 import ValidationError from "../errors/ValidationError";
 import {signinSchema, signupSchema} from "../schemas/AuthSchema";
 import {SignInData, SignUpData} from "../types/Auth";
-import {ToastStyles} from "../constants";
 
 export const SignIn = async (data: SignInData, toast) => {
   data = Trim.all(data)

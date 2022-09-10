@@ -1,10 +1,12 @@
 import {
   Box,
-  Button as NativeButton, Heading,
+  Button as NativeButton,
+  Heading,
   HStack,
   PresenceTransition,
   Progress,
-  ScrollView, Spinner,
+  ScrollView,
+  Spinner,
   Stack,
   Text,
   useToast,
@@ -12,8 +14,8 @@ import {
 import {useState} from "react";
 import {TouchableOpacity, View} from "react-native";
 import {handleError} from "../../../utils/ErrorHandler";
-import Layout from "../../components/Layout"
 import Button from "../../components/Button";
+import Layout from "../../components/Layout"
 import PrimaryInput from "../../components/PrimaryInput";
 import {ToastStyles} from "../../constants";
 import routes from "../../constants/routes";

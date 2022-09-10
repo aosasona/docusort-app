@@ -20,6 +20,8 @@ export interface PrimaryInputProps {
   disabled?: boolean;
   placeholder?: string;
   extraProps?: any;
+
+  [key: string]: any;
 }
 
 export interface BasePageProps {

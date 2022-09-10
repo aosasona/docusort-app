@@ -1,10 +1,11 @@
 import {Ionicons} from "@expo/vector-icons";
 import {Box, Flex, Icon, Pressable, Text, VStack} from "native-base";
-import {FC, useEffect} from "react";
+import {FC, Fragment, useEffect} from "react";
 import * as Haptics from 'expo-haptics';
 import {Dimensions} from "react-native";
 import {KeypadInputProps, KeypadProps} from "../types/Props";
 
+const cellSize = Dimensions.get("window").width * 0.2;
 
 const Keypad: FC<KeypadProps> = ({max, value, setValue, onCompleted}) => {
 
@@ -28,25 +29,25 @@ const Keypad: FC<KeypadProps> = ({max, value, setValue, onCompleted}) => {
 	Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).then();
   }
 
+  const cells = [
+	[1, 2, 3],
+	[4, 5, 6],
+	[7, 8, 9],
+  ]
+
   return (
-	<VStack space={6}>
+	<VStack space={4}>
+	  {cells.map((row, i) => (
+		<Flex key={i} direction="row" justifyContent="space-around" alignItems="center">
+		  <Fragment key={i}>
+			{row.map((cell, j) => (
+			  <KeypadInput value={cell} key={j} onPress={handlePress} isFilled={isFilled}/>
+			))}
+		  </Fragment>
+		</Flex>
+	  ))}
 	  <Flex direction="row" justifyContent="space-around" alignItems="center">
-		<KeypadInput value={1} onPress={handlePress} isFilled={isFilled}/>
-		<KeypadInput value={2} onPress={handlePress} isFilled={isFilled}/>
-		<KeypadInput value={3} onPress={handlePress} isFilled={isFilled}/>
-	  </Flex>
-	  <Flex direction="row" justifyContent="space-around" alignItems="center">
-		<KeypadInput value={4} onPress={handlePress} isFilled={isFilled}/>
-		<KeypadInput value={5} onPress={handlePress} isFilled={isFilled}/>
-		<KeypadInput value={6} onPress={handlePress} isFilled={isFilled}/>
-	  </Flex>
-	  <Flex direction="row" justifyContent="space-around" alignItems="center">
-		<KeypadInput value={7} onPress={handlePress} isFilled={isFilled}/>
-		<KeypadInput value={8} onPress={handlePress} isFilled={isFilled}/>
-		<KeypadInput value={9} onPress={handlePress} isFilled={isFilled}/>
-	  </Flex>
-	  <Flex direction="row" justifyContent="space-around" alignItems="center">
-		<Box width={12} height={12}/>
+		<Box width={cellSize} height={cellSize}/>
 		<KeypadInput value={0} onPress={handlePress} isFilled={isFilled}/>
 		<KeypadDelete onPress={handleDelete}/>
 	  </Flex>
@@ -62,13 +63,18 @@ const KeypadInput: FC<KeypadInputProps> = ({value, onPress, isFilled}) => {
 
   return (
 	<Pressable
-	  p={4}
+	  width={cellSize}
+	  height={cellSize}
 	  onPress={handlePress}
+	  alignItems={"center"}
+	  justifyContent={"center"}
 	  _pressed={{
 		opacity: 0.4,
+		bg: "muted.800",
+		rounded: "2xl",
 	  }}
 	>
-	  <Text color="muted.100" fontWeight={800} fontSize={26}>
+	  <Text color="muted.100" fontWeight={700} fontSize={32}>
 		{value}
 	  </Text>
 	</Pressable>
@@ -83,14 +89,16 @@ const KeypadDelete = ({onPress}) => {
 
   return (
 	<Pressable
+	  width={cellSize}
+	  height={cellSize}
+	  alignItems="center"
+	  justifyContent="center"
 	  onPress={handlePress}
 	  _pressed={{
 		opacity: 0.4,
 	  }}
 	>
 	  <Box
-		width={12}
-		height={12}
 		alignItems="center"
 		justifyContent="center"
 		borderRadius={10}

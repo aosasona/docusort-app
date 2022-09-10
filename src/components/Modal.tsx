@@ -26,7 +26,7 @@ const Modal = ({
 		onBackdropPress={toggleVisibility}
 		onSwipeComplete={toggleVisibility}
 		swipeDirection={["down"]}
-		backdropOpacity={0.75}
+		backdropOpacity={0.8}
 		useNativeDriverForBackdrop
 		isVisible={visible}
 		style={{

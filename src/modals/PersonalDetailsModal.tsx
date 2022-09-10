@@ -72,7 +72,6 @@ const PersonalDetailsModal = ({visible, onClose}) => {
 		  maxLength={30}
 		/>
 		<PrimaryInput
-		  onChange={(e) => setData({...data, email: e})}
 		  value={state?.session?.user?.email}
 		  disabled
 		  placeholder={"E-mail address"}

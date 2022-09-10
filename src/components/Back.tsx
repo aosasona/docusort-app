@@ -7,8 +7,8 @@ const Back = ({usePrimaryColor = false, ...more}) => {
   return (
 	<Pressable
 	  {...more}
-	  width={30}
-	  height={30}
+	  width={34}
+	  height={34}
 	  borderRadius={10}
 	  justifyContent="center"
 	  alignItems="center"

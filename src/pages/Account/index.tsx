@@ -1,24 +1,29 @@
-import {AntDesign, Ionicons} from "@expo/vector-icons";
+import {AntDesign, Ionicons, MaterialCommunityIcons} from "@expo/vector-icons";
 import Constants from "expo-constants"
 import {Box, Button, Heading, HStack, Icon, Pressable, ScrollView, Text, useToast, VStack} from "native-base";
 import {FC, useContext, useState} from "react";
-import {RefreshControl} from 'react-native';
-import {Gravatar} from 'react-native-gravatar';
+import {Dimensions, RefreshControl} from 'react-native';
+import AccountCard from "../../components/AccountCard";
 import AppLayout from "../../components/AppLayout";
 import {reducerActions} from "../../constants/actions";
 import {GlobalContext} from "../../contexts/GlobalContext";
 import ImageInfoModal from "../../modals/ImageInfoModal";
 import PersonalDetailsModal from "../../modals/PersonalDetailsModal";
+import UsageModal from "../../modals/UsageModal";
 import {SignOut} from "../../services/AuthService";
 import {BasePageProps} from "../../types/Props";
+
+const {width} = Dimensions.get('window');
 
 const Account: FC<BasePageProps> = ({navigation}) => {
   const toast = useToast();
   const {state, dispatch} = useContext(GlobalContext);
   const {profile, session} = state;
+  const [refreshing, setRefreshing] = useState(false);
   const [imageInfoVisibility, setImageInfoVisibility] = useState(false);
   const [personalDetailVisibility, setPersonalDetailVisibility] = useState(false);
-  const [refreshing, setRefreshing] = useState(false);
+  const [usageVisibility, setUsageVisibility] = useState(false);
+
 
   const onRefresh = () => {
 	setRefreshing(true);
@@ -28,22 +33,6 @@ const Account: FC<BasePageProps> = ({navigation}) => {
 
   const signOut = async () => {
 	await SignOut(toast);
-  }
-
-  const tierColor = {
-	0: "gray.400",
-	1: "#67C499",
-	2: "#AB95FF",
-  }
-
-  const tierHex = tierColor[profile?.tier || 0]
-
-  const gravatarStyle = {
-	width: 130,
-	height: 130,
-	borderWidth: 5,
-	borderColor: "#DDDDDD",
-	borderRadius: 100,
   }
 
 
@@ -58,85 +47,68 @@ const Account: FC<BasePageProps> = ({navigation}) => {
 		  onRefresh={onRefresh}
 		/>}
 	  >
-		<VStack space={10}>
-		  <VStack space={5} alignItems={"center"}>
-			<Pressable onPress={() => setImageInfoVisibility(true)}>
-			  <Gravatar
-				options={{
-				  email: session?.user?.email,
-				  parameters: {"size": "200", "d": "retro"},
-				  secure: true,
-				}}
-				style={{
-				  ...gravatarStyle,
-				}}
-			  />
-			</Pressable>
-			<VStack space={3} alignItems="center">
-			  <Text fontFamily="body" color="muted.200" fontSize={28} fontWeight={600}>
-				{profile.first_name} {profile.last_name}
-			  </Text>
-			  <Box backgroundColor={tierHex} rounded={20} px={3} py={2} opacity={1}>
-				<Text color="muted.900" fontSize={12} fontWeight={500}>
-				  {profile.tier === 0 ? "Freemium Plan" : profile.tier === 1 ? "Premium Plan" : "Pro Plan"}
-				</Text>
-			  </Box>
-			</VStack>
-		  </VStack>
-		</VStack>
-		<Box bg="muted.900" rounded={40} px={5} py={5} mt={16}>
+
+		<AccountCard onPress={() => setImageInfoVisibility(true)} session={session} profile={profile}/>
+		
+		<Box px={5} py={3} mt={6}>
 		  <Box>
 			<VStack space={1}>
 
-			  <PageButton onPress={() => setPersonalDetailVisibility(true)}>
-				<Icon as={AntDesign} name="edit" size={5} color="muted.400"/>
-				<VStack>
-				  <PageButtonHeader>Personal details</PageButtonHeader>
-				  <PageButtonDescription>
-					Edit your personal/profile details
-				  </PageButtonDescription>
-				</VStack>
-			  </PageButton>
+			  <PageButton
+				title="Personal details"
+				description="Edit your personal/profile details"
+				onPress={() => setPersonalDetailVisibility(true)}
+				icon={{
+				  as: AntDesign,
+				  name: "edit",
+				}}
+			  />
 
-			  <PageButton>
-				<Icon as={AntDesign} name="key" size={5} color="muted.400"/>
-				<VStack>
-				  <PageButtonHeader>Change password</PageButtonHeader>
-				  <PageButtonDescription>
-					Protect your account by changing your password
-				  </PageButtonDescription>
-				</VStack>
-			  </PageButton>
+			  <PageButton
+				title="Usage & analytics"
+				description="View your storage usage and analytics"
+				onPress={() => setUsageVisibility(true)}
+				icon={{
+				  as: MaterialCommunityIcons,
+				  name: "chart-line",
+				}}
+			  />
 
-			  <PageButton>
-				<Icon as={Ionicons} name="keypad" size={5} color="muted.400"/>
-				<VStack>
-				  <PageButtonHeader>Change pin</PageButtonHeader>
-				  <PageButtonDescription>
-					Keep your files safe by setting a new pin
-				  </PageButtonDescription>
-				</VStack>
-			  </PageButton>
+			  <PageButton
+				title="Change password"
+				description="Protect your account by changing your password"
+				icon={{
+				  as: AntDesign,
+				  name: "key",
+				}}
+			  />
 
-			  <PageButton>
-				<Icon as={Ionicons} name="ios-finger-print" size={5} color="muted.400"/>
-				<VStack>
-				  <PageButtonHeader>Biometrics settings</PageButtonHeader>
-				  <PageButtonDescription>
-					Manage your biometrics authentication settings on this device
-				  </PageButtonDescription>
-				</VStack>
-			  </PageButton>
+			  <PageButton
+				title="Change pin"
+				description="Keep your files safe by setting a new pin"
+				icon={{
+				  as: Ionicons,
+				  name: "keypad",
+				}}
+			  />
 
-			  <PageButton>
-				<Icon as={Ionicons} name="help" size={5} color="muted.400"/>
-				<VStack>
-				  <PageButtonHeader>Help & FAQs</PageButtonHeader>
-				  <PageButtonDescription>
-					Get help or read our Frequently Asked Questions
-				  </PageButtonDescription>
-				</VStack>
-			  </PageButton>
+			  <PageButton
+				title="Biometrics settings"
+				description="Manage your biometrics authentication settings on this device"
+				icon={{
+				  as: Ionicons,
+				  name: "ios-finger-print",
+				}}
+			  />
+
+			  <PageButton
+				title="Help & FAQs"
+				description="Get help or read our Frequently Asked Questions"
+				icon={{
+				  as: Ionicons,
+				  name: "help",
+				}}
+			  />
 
 			</VStack>
 		  </Box>
@@ -156,14 +128,17 @@ const Account: FC<BasePageProps> = ({navigation}) => {
 			Version {Constants.manifest.version}
 		  </Text>
 		</Box>
+
+		{/* MODALS */}
 		<ImageInfoModal visible={imageInfoVisibility} onClose={() => setImageInfoVisibility(false)}/>
 		<PersonalDetailsModal visible={personalDetailVisibility} onClose={() => setPersonalDetailVisibility(false)}/>
+		<UsageModal visible={usageVisibility} onClose={() => setUsageVisibility(false)}/>
 	  </ScrollView>
 	</AppLayout>
   );
 }
 
-const PageButton = ({children, ...props}) => (
+const PageButton = ({title, description, icon, ...props}) => (
   <Button
 	backgroundColor="transparent"
 	justifyContent="flex-start"
@@ -173,7 +148,13 @@ const PageButton = ({children, ...props}) => (
 	{...props}
   >
 	<HStack space={4} alignItems="center" justifyContent="space-between">
-	  {children}
+	  <Icon as={icon.as} name={icon.name} size={5} color="muted.400"/>
+	  <VStack>
+		<PageButtonHeader>{title}</PageButtonHeader>
+		<PageButtonDescription>
+		  {description}
+		</PageButtonDescription>
+	  </VStack>
 	</HStack>
   </Button>
 )
@@ -185,7 +166,7 @@ const PageButtonHeader = ({children}) => (
 )
 
 const PageButtonDescription = ({children}) => (
-  <Text color="muted.600" fontWeight={400} fontSize={13}>
+  <Text w={width * 0.78} color="muted.600" fontWeight={400} fontSize={13}>
 	{children}
   </Text>
 )

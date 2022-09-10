@@ -11,7 +11,7 @@ const PinInput: FC<PinInputProps> = ({length, value}) => {
   const values = value.split("");
 
   return (
-	<HStack space={3} justifyContent="space-between" maxW={width * 0.9} mx="auto">
+	<HStack space={4} justifyContent="space-between" maxW={width * 0.9} mx="auto">
 	  {Array.from({length}, (_, i) => (
 		<PinInputField key={i} value={values[i]}/>
 	  ))}

@@ -9,6 +9,8 @@ import {ToastStyles} from "../../constants";
 
 const {height} = Dimensions.get("window");
 
+const pageHeight = height * 0.88;
+
 const SetPin = ({navigation}) => {
 
   const toast = useToast();
@@ -61,7 +63,7 @@ const SetPin = ({navigation}) => {
 const StepOne = ({pin, setPin, onCompleted}) => {
 
   return (
-	<Box height={height * 0.85} justifyContent="space-between">
+	<Box height={pageHeight} justifyContent="space-between">
 	  <Box px={6} py={2}>
 		<Back my={6}/>
 		<Heading color="light.200" fontFamily="heading" fontSize="4xl" fontWeight="500">
@@ -79,7 +81,7 @@ const StepOne = ({pin, setPin, onCompleted}) => {
 
 const StepTwo = ({pin, setPin, onCompleted}) => {
   return (
-	<Box height={height * 0.85} justifyContent="space-between">
+	<Box height={pageHeight} justifyContent="space-between">
 	  <Box px={6} py={2}>
 		<Back my={6}/>
 		<Heading color="light.200" fontFamily="heading" fontSize="4xl" fontWeight="500">

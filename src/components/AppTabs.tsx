@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useContext, useEffect, useState} from "react";
 import {Platform} from "react-native";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import {AntDesign} from '@expo/vector-icons';
+import {AntDesign, Ionicons} from '@expo/vector-icons';
 import {Icon} from "native-base";
 import supabase from "../../utils/Supabase";
 import {colors} from "../constants";
@@ -11,6 +11,7 @@ import routes from "../constants/routes";
 import {generalOptions, screenOptions} from "../constants/tabs";
 import {GlobalContext} from "../contexts/GlobalContext";
 import Account from "../pages/Account";
+import Folders from "../pages/Folders";
 import Home from "../pages/Home";
 import Search from "../pages/Search";
 import {getUserProfile} from "../services/ProfileService";
@@ -89,6 +90,21 @@ const AppTabs = ({navigation}) => {
 		  tabBarIcon: ({focused}) => <Icon
 			as={AntDesign}
 			name={"search1"}
+			size={6}
+			color={getIconColor(focused)}
+		  />,
+		  ...generalOptions,
+		}}
+	  />
+
+	  <Tab.Screen
+		name={routes.FOLDERS}
+		component={Folders}
+		options={{
+		  title: "Folders",
+		  tabBarIcon: ({focused}) => <Icon
+			as={Ionicons}
+			name={"md-folder-open-outline"}
 			size={6}
 			color={getIconColor(focused)}
 		  />,

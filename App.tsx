@@ -22,8 +22,9 @@ import {
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import * as SplashScreen from 'expo-splash-screen';
-import {extendTheme, NativeBaseProvider} from "native-base";
+import {Box, extendTheme, NativeBaseProvider, Spinner} from "native-base";
 import {useEffect, useState} from "react";
+import {View} from "react-native";
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import 'react-native-url-polyfill/auto'
 import supabase from "./utils/Supabase";
@@ -45,6 +46,7 @@ SplashScreen.preventAutoHideAsync().then();
 
 export default function App() {
   const [authStatus, setAuthStatus] = useState(AuthStatus.UNCHECKED)
+  const [routerIsReady, setRouterIsReady] = useState(false);
   let [fontsLoaded] = useFonts({
 	Thin,
 	ExtraLight,
@@ -95,11 +97,11 @@ export default function App() {
 
   useEffect(() => {
 	(async () => {
-	  if (fontsLoaded && (authStatus !== AuthStatus.UNCHECKED)) {
+	  if (fontsLoaded && authStatus !== AuthStatus.UNCHECKED && routerIsReady) {
 		await SplashScreen.hideAsync();
 	  }
 	})()
-  }, [fontsLoaded, authStatus])
+  }, [fontsLoaded, authStatus, routerIsReady])
 
 
   if (!fontsLoaded) {
@@ -119,7 +121,10 @@ export default function App() {
 	<GlobalProvider>
 	  <NativeBaseProvider theme={theme}>
 		<SafeAreaProvider>
-		  <NavigationContainer>
+		  <NavigationContainer
+			onReady={() => setRouterIsReady(true)}
+			theme={{colors: {background: "#000000"} as any} as any}
+		  >
 			<Stack.Navigator
 			  initialRouteName={authStatus === AuthStatus.SIGNED_IN ? routes.APP : routes.INITIAL}
 			  screenOptions={{headerShown: false}}

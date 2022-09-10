@@ -1,4 +1,4 @@
-import {AntDesign, Ionicons, MaterialCommunityIcons} from "@expo/vector-icons";
+import {AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
 import Constants from "expo-constants"
 import {Box, Button, HStack, Icon, ScrollView, Text, useToast, VStack} from "native-base";
 import {FC, useContext, useState} from "react";
@@ -74,30 +74,49 @@ const Account: FC<BasePageProps> = ({navigation}) => {
 				}}
 			  />
 
+			  {/* <PageButton */}
+			  {/* title="Change password" */}
+			  {/* description="Protect your account by changing your password" */}
+			  {/* icon={{ */}
+			  {/*   as: AntDesign, */}
+			  {/*   name: "key", */}
+			  {/* }} */}
+			  {/* /> */}
+
+			  {/* <PageButton */}
+			  {/* title="Change pin" */}
+			  {/* description="Keep your files safe by setting a new pin" */}
+			  {/* icon={{ */}
+			  {/*   as: Ionicons, */}
+			  {/*   name: "keypad", */}
+			  {/* }} */}
+			  {/* /> */}
+
+			  {/* <PageButton */}
+			  {/* title="Biometrics settings" */}
+			  {/* description="Manage biometrics sign-in settings on this device" */}
+			  {/* icon={{ */}
+			  {/*   as: Ionicons, */}
+			  {/*   name: "ios-finger-print", */}
+			  {/* }} */}
+			  {/* /> */}
+
+
 			  <PageButton
-				title="Change password"
-				description="Protect your account by changing your password"
+				title="Security"
+				description="Manage your account and in-app security settings"
 				icon={{
 				  as: AntDesign,
-				  name: "key",
+				  name: "lock",
 				}}
 			  />
 
 			  <PageButton
-				title="Change pin"
-				description="Keep your files safe by setting a new pin"
+				title="Subscription & billing"
+				description="Manage your subscription and billing"
 				icon={{
-				  as: Ionicons,
-				  name: "keypad",
-				}}
-			  />
-
-			  <PageButton
-				title="Biometrics settings"
-				description="Manage your biometrics authentication settings on this device"
-				icon={{
-				  as: Ionicons,
-				  name: "ios-finger-print",
+				  as: MaterialIcons,
+				  name: "payments",
 				}}
 			  />
 

@@ -2,6 +2,7 @@ import {AntDesign, Ionicons} from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {Button, Fab, Heading, HStack, Icon, ScrollView, Text, VStack} from "native-base";
 import {FC, useContext, useEffect, useState} from "react";
+import KeychainUtil from "../../../utils/Keychain";
 import AppLayout from "../../components/AppLayout";
 import routes from "../../constants/routes";
 import {GlobalContext} from "../../contexts/GlobalContext";
@@ -16,11 +17,12 @@ const Index: FC<BasePageProps> = ({navigation}) => {
 
   useEffect(() => {
 	(async () => {
-	  const pin = await AsyncStorage.getItem("pin");
-	  if (pin) {
-		setPinExists(true);
-	  } else {
-		setPinExists(false);
+	  try {
+		const pinIsSet = await KeychainUtil.checkPinIsSet()
+		setPinExists(pinIsSet)
+	  }
+	  catch (e) {
+		console.log(e)
 	  }
 	})()
   }, [])
@@ -31,8 +33,8 @@ const Index: FC<BasePageProps> = ({navigation}) => {
 	  <ScrollView>
 		<Heading
 		  color={"muted.200"}
-		  fontSize={28}
-		  fontWeight={600}
+		  fontSize={26}
+		  fontWeight={700}
 		  px={6}
 		  pt={6}
 		  pb={4}

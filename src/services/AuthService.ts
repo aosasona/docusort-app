@@ -1,11 +1,12 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {Trim} from "../../utils/Formatter";
+import KeychainUtil from "../../utils/Keychain";
 import supabase from "../../utils/Supabase";
 import {validate} from "../../utils/Validate";
 import {ToastStyles} from "../constants";
 import ValidationError from "../errors/ValidationError";
 import {signinSchema, signupSchema} from "../schemas/AuthSchema";
-import {SignInData, SignUpData} from "../types/Auth";
+import {SetPinData, SignInData, SignUpData} from "../types/Auth";
 
 export const SignIn = async (data: SignInData, toast) => {
   data = Trim.all(data)
@@ -13,7 +14,6 @@ export const SignIn = async (data: SignInData, toast) => {
   let {email, password} = data
 
   const validationErrors = validate(data, signinSchema)
-  console.log(validationErrors)
 
   if (validationErrors) {
 	throw new ValidationError(validationErrors)
@@ -73,7 +73,7 @@ export const SignUp = async (data: SignUpData, toast) => {
   return
 }
 
-export const SignOut = async (toast) => {
+export const SignOut = async (toast: any) => {
   await AsyncStorage.clear()
 
   const {error} = await supabase.auth.signOut()
@@ -91,4 +91,21 @@ export const SignOut = async (toast) => {
 	...ToastStyles.SUCCESS,
   })
   return
+}
+
+export const setDevicePin = async ({userId, pin, confirmPin}: SetPinData) => {
+  try {
+	if (!pin || !confirmPin) throw new ValidationError("Pin is required")
+
+	if (pin !== confirmPin) throw new ValidationError("Pins do not match")
+
+	await KeychainUtil.setPin({
+	  userId,
+	  pin: String(pin),
+	})
+	return true;
+  }
+  catch (e: unknown) {
+	throw e
+  }
 }

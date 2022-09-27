@@ -16,3 +16,9 @@ export enum AuthStatus {
   SIGNED_IN,
   SIGNED_OUT,
 }
+
+export interface SetPinData {
+  userId: string;
+  pin: number;
+  confirmPin: number;
+}

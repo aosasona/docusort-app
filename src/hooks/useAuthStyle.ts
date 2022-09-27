@@ -9,7 +9,7 @@ const useAuthStyle = () => {
 	  justifyContent: "space-between",
 	  paddingTop: 0.04 * height,
 	  paddingBottom: 0,
-	  paddingHorizontal: 0.08 * width,
+	  paddingHorizontal: 0.06 * width,
 	},
 	headerText: {
 	  color: colors.PRIMARY,

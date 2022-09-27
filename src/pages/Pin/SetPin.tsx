@@ -1,17 +1,22 @@
 import {Box, Heading, Text, useToast} from "native-base";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {Dimensions} from "react-native";
+import {handleError} from "../../../utils/ErrorHandler";
 import AppLayout from "../../components/AppLayout";
 import Back from "../../components/Back";
 import Keypad from "../../components/Keypad";
 import PinInput from "../../components/PinInput";
 import {ToastStyles} from "../../constants";
+import {GlobalContext} from "../../contexts/GlobalContext";
+import {setDevicePin} from "../../services/AuthService";
 
 const {height} = Dimensions.get("window");
 
 const pageHeight = height * 0.88;
 
 const SetPin = ({navigation}) => {
+
+  const {state} = useContext(GlobalContext);
 
   const toast = useToast();
   const [pin, setPin] = useState("");
@@ -34,10 +39,22 @@ const SetPin = ({navigation}) => {
 	}
   }
 
-  const handleSubmit = () => {
-	if (!(pin === confirmPin)) {
+  const handleSubmit = async () => {
+	try {
+	  await setDevicePin({
+		userId: state?.profile?.id,
+		pin: +pin,
+		confirmPin: +confirmPin,
+	  })
 	  toast.show({
-		description: "Pins do not match!",
+		description: "Yup, works!",
+		...ToastStyles.SUCCESS,
+	  })
+	}
+	catch (e: unknown) {
+	  const msg = handleError(e as any);
+	  toast.show({
+		description: msg,
 		...ToastStyles.ERROR,
 	  })
 	  setPin("");
@@ -45,11 +62,6 @@ const SetPin = ({navigation}) => {
 	  setStep(1);
 	  return;
 	}
-	toast.show({
-	  description: "Yup, works!",
-	  ...ToastStyles.SUCCESS,
-	})
-	// navigation.navigate("Home");
   }
 
   return (

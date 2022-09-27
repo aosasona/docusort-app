@@ -2,6 +2,7 @@ import {Divider, Heading, Text, VStack} from "native-base"
 import {useState} from "react";
 import Button from "../components/Button"
 import Modal from "../components/Modal";
+import ModalHeader from "../components/ModalHeader";
 import PrimaryInput from "../components/PrimaryInput";
 
 const UploadModal = ({visible, toggleVisibility}) => {
@@ -14,10 +15,9 @@ const UploadModal = ({visible, toggleVisibility}) => {
   return (
 	<Modal visible={visible} toggleVisibility={toggleVisibility}>
 	  <VStack space={5} py={5}>
-		<Heading color="muted.50" fontSize={18} textAlign={"center"}>
-		  Upload <Text color="primary.500">document</Text>
-		</Heading>
-		<Divider orientation="horizontal" bg="muted.700"/>
+		<ModalHeader>
+		  Upload
+		</ModalHeader>
 		<VStack space={5} py={2}>
 		  <PrimaryInput onChange={(e) => setData({...data, name: e})} placeholder="Document name"/>
 		  {/* <Select */}

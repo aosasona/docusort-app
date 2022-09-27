@@ -93,14 +93,13 @@ export const SignOut = async (toast: any) => {
   return
 }
 
-export const setDevicePin = async ({userId, pin, confirmPin}: SetPinData) => {
+export const setDevicePin = async ({pin, confirmPin}: SetPinData) => {
   try {
 	if (!pin || !confirmPin) throw new ValidationError("Pin is required")
 
 	if (pin !== confirmPin) throw new ValidationError("Pins do not match")
 
 	await KeychainUtil.setPin({
-	  userId,
 	  pin: String(pin),
 	})
 	return true;

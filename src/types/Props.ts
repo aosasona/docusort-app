@@ -30,6 +30,11 @@ export interface BasePageProps {
   navigation?: any
 }
 
+export interface BaseModalProps {
+  visible: boolean;
+  onClose: () => void;
+}
+
 export interface PinInputProps {
   length: number;
   value: string;
@@ -46,4 +51,8 @@ export interface KeypadInputProps {
   value: number,
   onPress: (e: string) => any,
   isFilled: boolean
+}
+
+export interface ModalHeaderProps {
+  children: React.ReactNode;
 }

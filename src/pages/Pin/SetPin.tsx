@@ -1,4 +1,4 @@
-import {Box, Heading, Text, useToast} from "native-base";
+import {Box, Heading, Spinner, Text, useToast} from "native-base";
 import {useContext, useEffect, useState} from "react";
 import {Dimensions} from "react-native";
 import {handleError} from "../../../utils/ErrorHandler";
@@ -7,6 +7,8 @@ import Back from "../../components/Back";
 import Keypad from "../../components/Keypad";
 import PinInput from "../../components/PinInput";
 import {ToastStyles} from "../../constants";
+import {reducerActions} from "../../constants/actions";
+import routes from "../../constants/routes";
 import {GlobalContext} from "../../contexts/GlobalContext";
 import {setDevicePin} from "../../services/AuthService";
 
@@ -16,7 +18,7 @@ const pageHeight = height * 0.88;
 
 const SetPin = ({navigation}) => {
 
-  const {state} = useContext(GlobalContext);
+  const {dispatch} = useContext(GlobalContext);
 
   const toast = useToast();
   const [pin, setPin] = useState("");
@@ -28,28 +30,30 @@ const SetPin = ({navigation}) => {
 	  const pinLastThree = pin.slice(-3);
 	  setPin(pinLastThree)
 	  setStep(1);
+
 	}
   }, [confirmPin]);
 
   const handleComplete = ({step}) => {
 	if (step === 1) {
-	  setStep(2)
+	  setTimeout(() => {
+		setStep(2)
+	  }, 100)
 	} else {
-	  handleSubmit();
+	  setTimeout(() => {
+		handleSubmit().then();
+	  }, 100)
 	}
   }
 
   const handleSubmit = async () => {
 	try {
 	  await setDevicePin({
-		userId: state?.profile?.id,
 		pin: +pin,
 		confirmPin: +confirmPin,
 	  })
-	  toast.show({
-		description: "Yup, works!",
-		...ToastStyles.SUCCESS,
-	  })
+	  dispatch({type: reducerActions.CONFIRM_PIN_SET, payload: true});
+	  navigation.navigate(routes.HOME);
 	}
 	catch (e: unknown) {
 	  const msg = handleError(e as any);
@@ -66,13 +70,13 @@ const SetPin = ({navigation}) => {
 
   return (
 	<AppLayout>
-	  {step === 1 && <StepOne pin={pin} setPin={setPin} onCompleted={handleComplete}/>}
-	  {step === 2 && <StepTwo pin={confirmPin} setPin={setConfirmPin} onCompleted={handleComplete}/>}
+	  {step === 1 && <StepOne pin={pin} setPin={setPin} onComplete={handleComplete}/>}
+	  {step === 2 && <StepTwo pin={confirmPin} setPin={setConfirmPin} onComplete={handleComplete}/>}
 	</AppLayout>
   )
 }
 
-const StepOne = ({pin, setPin, onCompleted}) => {
+const StepOne = ({pin, setPin, onComplete}) => {
 
   return (
 	<Box justifyContent="space-between" style={{flex: 1}}>
@@ -87,13 +91,20 @@ const StepOne = ({pin, setPin, onCompleted}) => {
 	  </Box>
 	  <PinInput length={4} value={pin}/>
 	  <Box mb={12}>
-		<Keypad max={4} value={pin} setValue={setPin} onCompleted={() => onCompleted({step: 1})}/>
+		<Keypad max={4} value={pin} setValue={setPin} onCompleted={() => onComplete({step: 1})}/>
 	  </Box>
 	</Box>
   )
 }
 
-const StepTwo = ({pin, setPin, onCompleted}) => {
+const StepTwo = ({pin, setPin, onComplete}) => {
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+	if (pin.length === 4) {
+	  setLoading(true);
+	}
+  }, [pin])
   return (
 	<Box height={pageHeight} justifyContent="space-between">
 	  <Box px={6} py={2}>
@@ -106,7 +117,8 @@ const StepTwo = ({pin, setPin, onCompleted}) => {
 		</Text>
 	  </Box>
 	  <PinInput length={4} value={pin}/>
-	  <Keypad max={4} value={pin} setValue={setPin} onCompleted={() => onCompleted({step: 2})}/>
+	  {loading && <Spinner/>}
+	  <Keypad max={4} value={pin} setValue={setPin} onCompleted={() => onComplete({step: 2})}/>
 	</Box>
   )
 }

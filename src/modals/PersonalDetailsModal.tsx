@@ -3,6 +3,7 @@ import {useContext, useEffect, useState} from "react";
 import {handleError} from "../../utils/ErrorHandler";
 import Button from "../components/Button";
 import Modal from "../components/Modal";
+import ModalHeader from "../components/ModalHeader";
 import PrimaryInput from "../components/PrimaryInput";
 import {ToastStyles} from "../constants";
 import {reducerActions} from "../constants/actions";
@@ -52,10 +53,9 @@ const PersonalDetailsModal = ({visible, onClose}) => {
   return (
 	<Modal visible={visible} toggleVisibility={onClose}>
 	  <VStack space={5} pt={3} pb={10}>
-		<Heading color="muted.200" fontWeight={600} fontSize={18} textAlign="center">
-		  Personal <Text color="primary.500">details</Text>
-		</Heading>
-		<Divider orientation="horizontal" bg="muted.700"/>
+		<ModalHeader>
+		  Personal Details
+		</ModalHeader>
 		<Text color="muted.400" fontWeight={500} px={3}>
 		  Update your profile details here. You can only change your first name and last name at the moment.
 		</Text>

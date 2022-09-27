@@ -1,4 +1,5 @@
-import {createContext, useReducer} from "react";
+import {createContext, useEffect, useReducer} from "react";
+import KeychainUtil from "../../utils/Keychain";
 import {GlobalReducer} from "../reducers/GlobalReducer";
 import {ContextState} from "../types/Context";
 
@@ -13,6 +14,17 @@ export const GlobalProvider = ({children}) => {
 	appUnlocked: false,
 	isPinSet: false,
   }
+
+  useEffect(() => {
+	(async () => {
+	  try {
+		initialState.isPinSet = await KeychainUtil.checkPinIsSet()
+	  }
+	  catch (e) {
+	  }
+	})()
+  }, [])
+
   const [state, dispatch] = useReducer(GlobalReducer as any, initialState);
   return (
 	<GlobalContext.Provider value={{state, dispatch}}>

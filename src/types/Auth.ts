@@ -18,7 +18,6 @@ export enum AuthStatus {
 }
 
 export interface SetPinData {
-  userId: string;
   pin: number;
   confirmPin: number;
 }

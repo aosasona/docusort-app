@@ -11,22 +11,9 @@ import {BasePageProps} from "../../types/Props";
 
 const Index: FC<BasePageProps> = ({navigation}) => {
   const {state, dispatch} = useContext(GlobalContext);
+  const {isPinSet} = state;
   const {profile} = state;
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
-  const [pinExists, setPinExists] = useState(true);
-
-  useEffect(() => {
-	(async () => {
-	  try {
-		const pinIsSet = await KeychainUtil.checkPinIsSet()
-		setPinExists(pinIsSet)
-	  }
-	  catch (e) {
-		console.log(e)
-	  }
-	})()
-  }, [])
-
 
   return (
 	<AppLayout>
@@ -41,7 +28,7 @@ const Index: FC<BasePageProps> = ({navigation}) => {
 		>
 		  Hello, {profile.first_name}
 		</Heading>
-		{!pinExists && <PinNotSetup navigation={navigation}/>}
+		{!isPinSet && <PinNotSetup navigation={navigation}/>}
 	  </ScrollView>
 
 	  <Fab

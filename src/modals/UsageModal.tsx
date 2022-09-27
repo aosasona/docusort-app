@@ -19,7 +19,7 @@ const UsageModal = ({visible, onClose}) => {
 
   return (
 	<Modal visible={visible} toggleVisibility={onClose}>
-	  <VStack space={5} py={5}>
+	  <VStack space={5} pb={5}>
 		<Heading color="muted.200" fontWeight={600} fontSize={18} textAlign="center">
 		  Usage
 		</Heading>

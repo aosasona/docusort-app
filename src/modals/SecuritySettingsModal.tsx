@@ -11,11 +11,10 @@ const {width} = Dimensions.get('window');
 export default function SecuritySettingsModal({visible, onClose}: SecuritySettingsProps) {
   return (
 	<Modal visible={visible} toggleVisibility={onClose}>
-	  <VStack space={4} pt={3} pb={10}>
+	  <VStack space={4} pb={6}>
 		<ModalHeader>
 		  Security
 		</ModalHeader>
-
 		<PageButton
 		  title="Change password"
 		  description="Protect your account by changing your password"

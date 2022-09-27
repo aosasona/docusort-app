@@ -23,7 +23,7 @@ const ImageInfoModal = ({visible, onClose}) => {
 
   return (
 	<Modal visible={visible} toggleVisibility={onClose}>
-	  <VStack space={5} pt={3} pb={10}>
+	  <VStack space={5} pb={10}>
 		<ModalHeader>
 		  Image info
 		</ModalHeader>

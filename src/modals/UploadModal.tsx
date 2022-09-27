@@ -14,7 +14,7 @@ const UploadModal = ({visible, toggleVisibility}) => {
 
   return (
 	<Modal visible={visible} toggleVisibility={toggleVisibility}>
-	  <VStack space={5} py={5}>
+	  <VStack space={5} pb={5}>
 		<ModalHeader>
 		  Upload
 		</ModalHeader>

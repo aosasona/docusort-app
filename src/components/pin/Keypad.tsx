@@ -1,13 +1,16 @@
 import {Ionicons} from "@expo/vector-icons";
 import * as Haptics from 'expo-haptics';
-import {Box, Flex, Icon, Pressable, Text, VStack} from "native-base";
+import {Box, Flex, Icon, Pressable, Text, useToast, VStack} from "native-base";
 import {FC, Fragment, useEffect} from "react";
 import {Dimensions} from "react-native";
-import {KeypadInputProps, KeypadProps} from "../types/Props";
+import {SignOut} from "../../services/AuthService";
+import {KeypadInputProps, KeypadProps} from "../../types/Props";
 
 const cellSize = Dimensions.get("window").width * 0.2;
 
-const Keypad: FC<KeypadProps> = ({max, value, setValue, onCompleted}) => {
+const Keypad: FC<KeypadProps> = ({max, value, setValue, showSignOut = false, onCompleted}) => {
+
+  const toast = useToast();
 
   useEffect(() => {
 	if (value.length === max) {
@@ -29,6 +32,11 @@ const Keypad: FC<KeypadProps> = ({max, value, setValue, onCompleted}) => {
 	Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).then();
   }
 
+  const handleSignOut = () => {
+	Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).then();
+	SignOut(toast).then();
+  }
+
   const cells = [
 	[1, 2, 3],
 	[4, 5, 6],
@@ -47,7 +55,21 @@ const Keypad: FC<KeypadProps> = ({max, value, setValue, onCompleted}) => {
 		</Flex>
 	  ))}
 	  <Flex direction="row" justifyContent="space-around" alignItems="center">
-		<Box width={cellSize} height={cellSize}/>
+		{showSignOut ?
+		  <Pressable
+			width={cellSize}
+			height={cellSize}
+			alignItems="center"
+			justifyContent="center"
+			onPress={handleSignOut}
+			_pressed={{
+			  opacity: 0.4,
+			}}
+		  >
+			<Text color="red.600" fontSize={14} fontWeight={700}>Sign Out</Text>
+		  </Pressable>
+		  : <Box width={cellSize} height={cellSize}/>
+		}
 		<KeypadInput value={0} onPress={handlePress} isFilled={isFilled}/>
 		<KeypadDelete onPress={handleDelete}/>
 	  </Flex>

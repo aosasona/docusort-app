@@ -1,5 +1,5 @@
 import {Divider, Heading, View, VStack} from "native-base";
-import {ModalHeaderProps} from "../types/Props";
+import {ModalHeaderProps} from "../../types/Props";
 
 export default function ModalHeader({children}: ModalHeaderProps) {
   return (

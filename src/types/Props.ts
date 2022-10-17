@@ -43,6 +43,7 @@ export interface PinInputProps {
 export interface KeypadProps {
   max: number;
   value: string;
+  showSignOut?: boolean;
   setValue: (value: string) => void;
   onCompleted?: () => void;
 }
@@ -55,4 +56,18 @@ export interface KeypadInputProps {
 
 export interface ModalHeaderProps {
   children: React.ReactNode;
+}
+
+export interface PageIconProps {
+  as: any;
+  name: string;
+  color?: string;
+}
+
+export interface PageButtonProps {
+  title: string;
+  description: string;
+  icon: PageIconProps;
+
+  [key: string]: any;
 }

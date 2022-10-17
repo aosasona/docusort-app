@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {Button, Fab, Heading, HStack, Icon, ScrollView, Text, VStack} from "native-base";
 import {FC, useContext, useEffect, useState} from "react";
 import KeychainUtil from "../../../utils/Keychain";
-import AppLayout from "../../components/AppLayout";
+import AppLayout from "../../components/shared/AppLayout";
 import routes from "../../constants/routes";
 import {GlobalContext} from "../../contexts/GlobalContext";
 import UploadModal from "../../modals/UploadModal";
@@ -26,18 +26,18 @@ const Index: FC<BasePageProps> = ({navigation}) => {
 		  pt={6}
 		  pb={4}
 		>
-		  Hello, {profile.first_name}
+		  Hello, {profile.first_name} 👋
 		</Heading>
 		{!isPinSet && <PinNotSetup navigation={navigation}/>}
 	  </ScrollView>
 
 	  <Fab
 		renderInPortal={false}
-		shadow={3}
+		shadow={4}
 		size={16}
 		position="absolute"
-		bottom={6}
-		right={4}
+		bottom={5}
+		right={5}
 		backgroundColor="primary.500"
 		icon={<Icon color="muted.800" as={AntDesign} name="plus" size={6}/>}
 		onPress={() => setIsUploadModalOpen(true)}

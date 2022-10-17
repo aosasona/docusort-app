@@ -27,6 +27,16 @@ export const GlobalReducer = (state, action) => {
 		...state,
 		isPinSet: action.payload,
 	  }
+	case reducerActions.UNLOCK_APP:
+	  return {
+		...state,
+		isAppLocked: false,
+	  }
+	case reducerActions.STOP_APP_LOCK_STATE_LOADING:
+	  return {
+		...state,
+		isAppLockStateLoading: false,
+	  }
 	default:
 	  return state;
   }

@@ -11,11 +11,6 @@ const bgImage = require("../../../assets/initial-bg.png")
 const Initial = ({navigation}) => {
   const {width, height} = useWindowDimensions()
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
-  const {
-	isOpen,
-	onOpen,
-	onClose,
-  } = useDisclose();
   return (
 	<>
 	  <ImageBackground source={bgImage} resizeMode="cover">

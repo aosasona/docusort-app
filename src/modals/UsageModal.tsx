@@ -1,6 +1,6 @@
 import {Box, Divider, Heading, Text, VStack} from "native-base";
 import {useContext} from "react";
-import Modal from "../components/Modal";
+import Modal from "../components/reusables/Modal";
 import {GlobalContext} from "../contexts/GlobalContext";
 
 const UsageModal = ({visible, onClose}) => {

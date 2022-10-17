@@ -1,10 +1,10 @@
 import {Divider, Heading, Spinner, Text, useToast, VStack} from "native-base";
 import {useContext, useEffect, useState} from "react";
 import {handleError} from "../../utils/ErrorHandler";
-import Button from "../components/Button";
-import Modal from "../components/Modal";
-import ModalHeader from "../components/ModalHeader";
-import PrimaryInput from "../components/PrimaryInput";
+import Button from "../components/reusables/Button";
+import Modal from "../components/reusables/Modal";
+import ModalHeader from "../components/reusables/ModalHeader";
+import PrimaryInput from "../components/reusables/PrimaryInput";
 import {ToastStyles} from "../constants";
 import {reducerActions} from "../constants/actions";
 import {GlobalContext} from "../contexts/GlobalContext";

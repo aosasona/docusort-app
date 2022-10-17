@@ -14,9 +14,9 @@ import {
 import {useState} from "react";
 import {TouchableOpacity, View} from "react-native";
 import {handleError} from "../../../utils/ErrorHandler";
-import Button from "../../components/Button";
-import Layout from "../../components/Layout"
-import PrimaryInput from "../../components/PrimaryInput";
+import Button from "../../components/reusables/Button";
+import Layout from "../../components/shared/Layout"
+import PrimaryInput from "../../components/reusables/PrimaryInput";
 import {ToastStyles} from "../../constants";
 import routes from "../../constants/routes";
 import useAuthStyle from "../../hooks/useAuthStyle";
@@ -81,10 +81,10 @@ const SignUp = ({navigation}) => {
   return (
 	<Layout style={styles.container}>
 	  <ScrollView showsVerticalScrollIndicator={false}>
-		<Heading color="light.200" fontFamily="heading" fontSize="4xl" fontWeight="500">
+		<Heading color="light.200" fontFamily="heading" fontSize="4xl" fontWeight="600">
 		  Get Started
 		</Heading>
-		<Text color="muted.600" fontFamily="body" fontSize={14} mt={1}>
+		<Text color="muted.700" fontFamily="body" fontWeight="500" fontSize={14} mt={1}>
 		  Let's get you started with an account 🫰
 		</Text>
 		<Stack space={6} mt={4}>

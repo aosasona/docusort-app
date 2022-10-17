@@ -1,5 +1,5 @@
 import {Text} from "native-base";
-import AppLayout from "../../components/AppLayout";
+import AppLayout from "../../components/shared/AppLayout";
 
 const Folders = () => {
   return (

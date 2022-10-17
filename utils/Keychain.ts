@@ -35,6 +35,7 @@ export default class KeychainUtil {
 	  if (!await this.checkPinIsSet()) {
 		throw new AppError("Pin is not set!")
 	  }
+	  if (pin === undefined || pin == "0000" || Number(pin) == 0) throw new AppError("Pin cannot be 0000 or blank")
 	  const savedPin = await AsyncStorage.getItem("pin");
 	  return bcrypt.compareSync(pin, savedPin);
 	}

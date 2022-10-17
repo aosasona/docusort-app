@@ -1,3 +1,5 @@
+import {Dispatch, SetStateAction} from "react";
+
 export interface SignInData {
   email: string;
   password: string;
@@ -20,4 +22,9 @@ export enum AuthStatus {
 export interface SetPinData {
   pin: number;
   confirmPin: number;
+}
+
+export interface UnlockAppData {
+  pin: string;
+  dispatch: Dispatch<SetStateAction<any>>;
 }

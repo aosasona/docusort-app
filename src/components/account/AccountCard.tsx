@@ -13,7 +13,7 @@ const AccountCard = ({session, profile, onPress}) => {
 
   return (
 	<VStack space={10}>
-	  <VStack space={5} alignItems={"center"}>
+	  <VStack space={4} alignItems={"center"}>
 		<Pressable onPress={onPress}>
 		  <Gravatar
 			options={{
@@ -26,11 +26,11 @@ const AccountCard = ({session, profile, onPress}) => {
 			}}
 		  />
 		</Pressable>
-		<VStack space={2} alignItems="center">
-		  <Text fontFamily="body" color="muted.200" fontSize={30} fontWeight={600}>
+		<VStack space={1} alignItems="center">
+		  <Text fontFamily="body" color="muted.200" fontSize={29} fontWeight={600}>
 			{profile.first_name} {profile.last_name}
 		  </Text>
-		  <Text color="primary.100" fontSize={13} fontWeight={500}>
+		  <Text color="primary.100" fontSize={13} fontWeight={400}>
 			{session.user.email}
 		  </Text>
 		</VStack>

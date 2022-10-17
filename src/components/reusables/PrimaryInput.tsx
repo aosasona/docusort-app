@@ -1,7 +1,7 @@
 import {Input} from "native-base";
 import {FC} from "react";
 import {Platform} from "react-native";
-import {PrimaryInputProps} from "../types/Props";
+import {PrimaryInputProps} from "../../types/Props";
 
 const PrimaryInput: FC<PrimaryInputProps> = ({
   type = "text",

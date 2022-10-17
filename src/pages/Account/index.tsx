@@ -3,10 +3,10 @@ import Constants from "expo-constants"
 import {Box, Button, HStack, Icon, ScrollView, Text, useToast, VStack} from "native-base";
 import {FC, useContext, useState} from "react";
 import {Dimensions, RefreshControl} from 'react-native';
-import AccountCard from "../../components/AccountCard";
-import AccountSectionFooter from "../../components/AccountSectionFooter";
-import AppLayout from "../../components/AppLayout";
-import PageButton from "../../components/PageButton";
+import AccountCard from "../../components/account/AccountCard";
+import AccountSectionFooter from "../../components/account/AccountSectionFooter";
+import AppLayout from "../../components/shared/AppLayout";
+import PageButton from "../../components/reusables/PageButton";
 import {ToastStyles} from "../../constants";
 import {reducerActions} from "../../constants/actions";
 import {GlobalContext} from "../../contexts/GlobalContext";
@@ -48,7 +48,6 @@ const Account: FC<BasePageProps> = ({navigation}) => {
 	<AppLayout>
 	  <ScrollView
 		pt={12}
-		backgroundColor="#000000"
 		showsVerticalScrollIndicator={false}
 		refreshControl={<RefreshControl
 		  refreshing={refreshing}
@@ -58,7 +57,7 @@ const Account: FC<BasePageProps> = ({navigation}) => {
 
 		<AccountCard onPress={() => setImageInfoVisibility(true)} session={session} profile={profile}/>
 
-		<Box px={5} py={3} mt={6}>
+		<Box px={5} py={3} my={5}>
 		  <Box>
 			<VStack space={1}>
 
@@ -69,6 +68,7 @@ const Account: FC<BasePageProps> = ({navigation}) => {
 				icon={{
 				  as: AntDesign,
 				  name: "edit",
+				  color: "rose",
 				}}
 			  />
 
@@ -79,16 +79,18 @@ const Account: FC<BasePageProps> = ({navigation}) => {
 				icon={{
 				  as: MaterialCommunityIcons,
 				  name: "chart-line",
+				  color: "blue",
 				}}
 			  />
 
 			  <PageButton
 				title="Security"
-				description="Manage your account and in-app security settings"
+				description="Manage your account & in-app security settings"
 				onPress={() => setSecurityVisibility(true)}
 				icon={{
-				  as: AntDesign,
-				  name: "lock",
+				  as: Ionicons,
+				  name: "lock-closed",
+				  color: "muted",
 				}}
 			  />
 
@@ -98,16 +100,19 @@ const Account: FC<BasePageProps> = ({navigation}) => {
 				onPress={() => showErrorStatus("Coming soon")}
 				icon={{
 				  as: MaterialIcons,
-				  name: "payments",
+				  name: "payment",
+				  color: "emerald",
 				}}
 			  />
 
 			  <PageButton
 				title="Help & FAQs"
-				description="Get help or read our Frequently Asked Questions"
+				description="Need help? View our FAQs or contact us"
+				onPress={() => showErrorStatus("Coming soon")}
 				icon={{
 				  as: Ionicons,
 				  name: "help",
+				  color: "amber",
 				}}
 			  />
 

@@ -2,10 +2,10 @@ import {Box, Heading, Spinner, Text, useToast} from "native-base";
 import {useContext, useEffect, useState} from "react";
 import {Dimensions} from "react-native";
 import {handleError} from "../../../utils/ErrorHandler";
-import AppLayout from "../../components/AppLayout";
-import Back from "../../components/Back";
-import Keypad from "../../components/Keypad";
-import PinInput from "../../components/PinInput";
+import AppLayout from "../../components/shared/AppLayout";
+import Back from "../../components/reusables/Back";
+import Keypad from "../../components/pin/Keypad";
+import PinInput from "../../components/pin/PinInput";
 import {ToastStyles} from "../../constants";
 import {reducerActions} from "../../constants/actions";
 import routes from "../../constants/routes";
@@ -53,6 +53,7 @@ const SetPin = ({navigation}) => {
 		confirmPin: +confirmPin,
 	  })
 	  dispatch({type: reducerActions.CONFIRM_PIN_SET, payload: true});
+	  dispatch({type: reducerActions.UNLOCK_APP});
 	  navigation.navigate(routes.HOME);
 	}
 	catch (e: unknown) {
@@ -82,10 +83,10 @@ const StepOne = ({pin, setPin, onComplete}) => {
 	<Box justifyContent="space-between" style={{flex: 1}}>
 	  <Box px={6} py={2}>
 		<Back my={6}/>
-		<Heading color="light.200" fontFamily="heading" fontSize="4xl" fontWeight="500">
+		<Heading color="light.200" fontFamily="heading" fontSize="5xl" fontWeight="700">
 		  Set Pin
 		</Heading>
-		<Text color="muted.600" fontFamily="body" fontSize={14} mt={1}>
+		<Text color="muted.700" fontFamily="body" fontSize={16} fontWeight={500} mt={1}>
 		  Enter a 4-digit pin to secure your account
 		</Text>
 	  </Box>
@@ -109,10 +110,10 @@ const StepTwo = ({pin, setPin, onComplete}) => {
 	<Box height={pageHeight} justifyContent="space-between">
 	  <Box px={6} py={2}>
 		<Back my={6}/>
-		<Heading color="light.200" fontFamily="heading" fontSize="4xl" fontWeight="500">
+		<Heading color="light.200" fontFamily="heading" fontSize="5xl" fontWeight="700">
 		  Confirm Pin
 		</Heading>
-		<Text color="muted.600" fontFamily="body" fontSize={14} mt={1}>
+		<Text color="muted.600" fontFamily="body" fontSize={14} fontWeight={500} mt={2}>
 		  Enter your pin again to confirm
 		</Text>
 	  </Box>

@@ -1,6 +1,6 @@
 import Constants from "expo-constants";
 import {Button, Text, useToast, View, VStack} from "native-base";
-import {SignOut} from "../services/AuthService";
+import {SignOut} from "../../services/AuthService";
 
 export default function AccountSectionFooter() {
 

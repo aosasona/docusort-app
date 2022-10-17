@@ -1,5 +1,5 @@
 export const newColorTheme = {
-  dark: "#080808",
+  dark: "#0D0D0D",
   primary: {
 	900: "#FFC58022",
 	800: "#FFC58066",
@@ -13,49 +13,41 @@ export const newColorTheme = {
   },
 };
 
+
 export const newFontConfig = {
-  Urbanist: {
+  Inter: {
 	100: {
-	  normal: "Thin",
-	  italic: "Italic",
+	  normal: "Inter_100Thin",
 	},
 	200: {
-	  normal: "ExtraLight",
-	  italic: "ExtraLight_Italic",
+	  normal: "Inter_200ExtraLight",
 	},
 	300: {
-	  normal: "Light",
-	  italic: "Light_Italic",
+	  normal: "Inter_300Light",
 	},
 	400: {
-	  normal: "Regular",
-	  italic: "Regular_Italic",
+	  normal: "Inter_400Regular",
 	},
 	500: {
-	  normal: "Medium",
-	  italic: "Medium_Italic",
+	  normal: "Inter_500Medium",
 	},
 	600: {
-	  normal: "SemiBold",
-	  italic: "SemiBold_Italic",
+	  normal: "Inter_600SemiBold",
 	},
 	700: {
-	  normal: "Bold",
-	  italic: "Bold_Italic",
+	  normal: "Inter_700Bold",
 	},
 	800: {
-	  normal: "ExtraBold",
-	  italic: "ExtraBold_Italic",
+	  normal: "Inter_800ExtraBold",
 	},
 	900: {
-	  normal: "Black",
-	  italic: "Black_Italic",
+	  normal: "Inter_900Black",
 	},
   },
 }
 
 export const newFonts = {
-  heading: "Urbanist",
-  body: "Urbanist",
-  mono: "Urbanist",
+  heading: "Inter",
+  body: "Inter",
+  mono: "Inter",
 }

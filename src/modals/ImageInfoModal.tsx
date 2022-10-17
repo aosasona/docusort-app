@@ -1,8 +1,8 @@
 import {Divider, Heading, Text, useToast, VStack} from "native-base";
 import {Linking} from "react-native";
-import Button from "../components/Button";
-import Modal from "../components/Modal";
-import ModalHeader from "../components/ModalHeader";
+import Button from "../components/reusables/Button";
+import Modal from "../components/reusables/Modal";
+import ModalHeader from "../components/reusables/ModalHeader";
 import {ToastStyles} from "../constants";
 
 const ImageInfoModal = ({visible, onClose}) => {

@@ -6,7 +6,8 @@ export const colors = {
   SECONDARY: '#F5F5F5',
   FADED: '#FFC58077',
   DARK: '#010101',
-  BLACK: "#020202",
+  BLACK: "#0D0D0D",
+  DARK_FADED: '#202020',
   INPUT_BG: "#D5B25822",
 }
 export const defaultStyles = {

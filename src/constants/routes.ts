@@ -9,8 +9,8 @@ const routes = {
   SEARCH: "app/search",
   ID_PAGE: "app/folders/id",
   FOLDERS: "app/folders/folder",
+  UNLOCK_APP: "app/unlock",
   SET_PIN: "app/pin/set",
-  ENTER_PIN: "app/pin/enter",
 }
 
 export default routes

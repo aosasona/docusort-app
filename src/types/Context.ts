@@ -14,8 +14,9 @@ export interface ContextState {
   session: Session | null;
   profile: Profile | null;
   profileKey: number;
-  appUnlocked: boolean;
+  isAppLocked: boolean;
   isPinSet: boolean;
+  isLockStateLoading: boolean;
 }
 
 export interface ContextInterface {

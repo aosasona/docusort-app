@@ -15,13 +15,15 @@ export const generalOptions = {
   },
   tabBarActiveTintColor: colors.PRIMARY,
   tabBarInactiveTintColor: colors.LIGHT,
+  tabBarHideOnKeyboard: true,
 } as any
 
 export const screenOptions = {
   tabBarStyle: {
 	backgroundColor: colors.BLACK,
-	height: isAndroid ? 70 : 100,
-	borderTopWidth: 0,
+	height: isAndroid ? 70 : 90,
+	borderTopWidth: 0.5,
+	borderTopColor: colors.DARK_FADED,
   },
   tabBarItemStyle: {
 	marginHorizontal: 10,

@@ -1,6 +1,6 @@
 import {Divider, Heading, Text, VStack} from "native-base";
-import Button from "../components/Button"
-import Modal from "../components/Modal";
+import Button from "../components/reusables/Button"
+import Modal from "../components/reusables/Modal";
 import routes from "../constants/routes";
 
 const AuthModal = ({visible, navigation, toggleVisibility}) => {

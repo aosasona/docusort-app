@@ -26,7 +26,7 @@ const Modal = ({
 		onBackdropPress={toggleVisibility}
 		onSwipeComplete={toggleVisibility}
 		swipeDirection={["down"]}
-		backdropOpacity={0.8}
+		backdropOpacity={0.9}
 		useNativeDriverForBackdrop
 		isVisible={visible}
 		style={{
@@ -37,8 +37,8 @@ const Modal = ({
 		  marginVertical: 0,
 		}}
 	  >
-		<Box backgroundColor="muted.900" roundedTop={30} px={5} py={4} maxHeight={height * 0.9}>
-		  <Box width={10} height={1} backgroundColor="muted.700" rounded="sm" alignSelf="center" mb={1}/>
+		<Box backgroundColor="muted.900" roundedTop={40} px={5} py={3} maxHeight={height * 0.85}>
+		  <Box width={12} height={1.5} backgroundColor="muted.700" rounded="md" alignSelf="center" mb={1}/>
 		  <ScrollView showsVerticalScrollIndicator={false} maxHeight={height * 0.9}>
 			{children}
 		  </ScrollView>

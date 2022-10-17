@@ -1,12 +1,14 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as LocalAuthentication from "expo-local-authentication";
 import {Trim} from "../../utils/Formatter";
 import KeychainUtil from "../../utils/Keychain";
 import supabase from "../../utils/Supabase";
 import {validate} from "../../utils/Validate";
 import {ToastStyles} from "../constants";
+import AppError from "../errors/AppError";
 import ValidationError from "../errors/ValidationError";
 import {signinSchema, signupSchema} from "../schemas/AuthSchema";
-import {SetPinData, SignInData, SignUpData} from "../types/Auth";
+import {SetPinData, SignInData, SignUpData, UnlockAppData} from "../types/Auth";
 
 export const SignIn = async (data: SignInData, toast) => {
   data = Trim.all(data)
@@ -95,7 +97,9 @@ export const SignOut = async (toast: any) => {
 
 export const setDevicePin = async ({pin, confirmPin}: SetPinData) => {
   try {
-	if (!pin || !confirmPin) throw new ValidationError("Pin is required")
+	if (pin === undefined || pin == 0) throw new AppError("Pin cannot be 0000")
+
+	if (!pin || !confirmPin) throw new ValidationError("pin is required")
 
 	if (pin !== confirmPin) throw new ValidationError("Pins do not match")
 
@@ -105,6 +109,23 @@ export const setDevicePin = async ({pin, confirmPin}: SetPinData) => {
 	return true;
   }
   catch (e: unknown) {
+	throw e
+  }
+}
+
+export const unlockApp = async ({pin, dispatch}: UnlockAppData) => {
+  try {
+	if (!pin) throw new ValidationError("pin is required")
+  }
+  catch (e: unknown) {
+  }
+}
+
+export const checkBiometricsAvailability = async () => {
+  try {
+	return await LocalAuthentication.hasHardwareAsync()
+  }
+  catch (e) {
 	throw e
   }
 }

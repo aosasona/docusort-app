@@ -58,7 +58,7 @@ const AppTabs = ({navigation}) => {
 
   useEffect(() => {
 	const subscription = AppState.addEventListener("change", (state) => {
-	  if (state === "inactive" || state === "background") {
+	  if (state === "background") {
 		dispatch({type: reducerActions.LOCK_APP})
 	  }
 	})

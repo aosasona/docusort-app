@@ -16,7 +16,6 @@ const Search: FC<BasePageProps> = ({session}) => {
 	<AppLayout style={{paddingHorizontal: 15}}>
 	  <ScrollView
 		pt={8}
-		backgroundColor="#000000"
 		showsVerticalScrollIndicator={false}
 	  >
 		<PrimaryInput onChange={setQuery} placeholder="Search..."/>

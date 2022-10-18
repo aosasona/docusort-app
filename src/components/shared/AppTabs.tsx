@@ -3,6 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {Icon, Spinner, useToast, View} from "native-base";
 import {useContext, useEffect} from "react";
+import {AppState} from "react-native";
 import KeychainUtil from "../../../utils/Keychain";
 import supabase from "../../../utils/Supabase";
 import {reducerActions} from "../../constants/actions";
@@ -54,6 +55,18 @@ const AppTabs = ({navigation}) => {
 	}
 	return
   }, [session])
+
+  useEffect(() => {
+	const subscription = AppState.addEventListener("change", (state) => {
+	  if (state === "inactive" || state === "background") {
+		dispatch({type: reducerActions.LOCK_APP})
+	  }
+	})
+
+	return () => {
+	  subscription.remove()
+	}
+  }, [])
 
   async function getSession() {
 	try {

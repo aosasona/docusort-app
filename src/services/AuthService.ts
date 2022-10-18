@@ -5,6 +5,7 @@ import KeychainUtil from "../../utils/Keychain";
 import supabase from "../../utils/Supabase";
 import {validate} from "../../utils/Validate";
 import {ToastStyles} from "../constants";
+import {reducerActions} from "../constants/actions";
 import AppError from "../errors/AppError";
 import ValidationError from "../errors/ValidationError";
 import {signinSchema, signupSchema} from "../schemas/AuthSchema";
@@ -115,9 +116,26 @@ export const setDevicePin = async ({pin, confirmPin}: SetPinData) => {
 
 export const unlockApp = async ({pin, dispatch}: UnlockAppData) => {
   try {
+	if (pin === undefined || Number(pin) == 0) throw new AppError("Pin cannot be 0000")
+
 	if (!pin) throw new ValidationError("pin is required")
+
+	const isPinSet = await KeychainUtil.checkPinIsSet()
+
+	if (!isPinSet) throw new AppError("Pin is not set!")
+
+	const isPinCorrect = await KeychainUtil.comparePin(pin)
+
+	if (!isPinCorrect) throw new ValidationError("Incorrect Pin")
+
+	dispatch({
+	  type: reducerActions.UNLOCK_APP,
+	})
+
+	return;
   }
   catch (e: unknown) {
+	throw e
   }
 }
 

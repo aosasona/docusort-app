@@ -43,8 +43,13 @@ export default function SecuritySettingsModal({visible, onClose}: SecuritySettin
 				<Text width={width * 0.5} color="muted.600" fontSize={13}>Enable/disable biometrics unlock on this device</Text>
 			  </VStack>
 			</HStack>
-			<Switch size="md" onTrackColor="primary.500" onThumbColor="muted.50" offTrackColor="muted.600"
-					offThumbColor="muted.100"/>
+			<Switch
+			  size="md"
+			  onTrackColor="primary.500"
+			  onThumbColor="muted.50"
+			  offTrackColor="muted.600"
+			  offThumbColor="muted.100"
+			/>
 		  </HStack>
 		</VStack>
 	  </VStack>

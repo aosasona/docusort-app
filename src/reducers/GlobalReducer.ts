@@ -32,6 +32,11 @@ export const GlobalReducer = (state, action) => {
 		...state,
 		isAppLocked: false,
 	  }
+	case reducerActions.LOCK_APP:
+	  return {
+		...state,
+		isAppLocked: true,
+	  }
 	case reducerActions.STOP_APP_LOCK_STATE_LOADING:
 	  return {
 		...state,
